@@ -1,10 +1,10 @@
-# Data Room — Verified Facts, Sources, and Pre-Submission Checklist
+# Data Room - Verified Facts, Sources, and Pre-Submission Checklist
 
-This file is the data-prep backbone for the proposal. §1–§3 are verified facts with sources. §4 is the open checklist of numbers and artifacts to gather **before** the formal submission goes to sitting members.
+This file is the data-prep backbone for the proposal. §1-§3 are verified facts with sources. §4 is the open checklist of numbers and artifacts to gather **before** the formal submission goes to sitting members.
 
 ---
 
-## 1. Xahau governance — verified spec facts
+## 1. Xahau governance - verified spec facts
 
 Verified against the governance hook source and live ledger state (via `account_namespace` on the genesis account, July 2026).
 
@@ -13,8 +13,8 @@ Verified against the governance hook source and live ledger state (via `account_
 | Governance account | `rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh` (genesis) | govern.c |
 | L1 seats | 20 (`SEAT_COUNT 20`) | govern.c |
 | Filled seats / `MC` | 8 | live hook state |
-| Vacant seats | S7, S9–S19 (12 seats) | live hook state |
-| Seat-change threshold | 80% of filled seats, floor, min 2 → currently **6 of 8** | govern.c lines ~372–393 |
+| Vacant seats | S7, S9-S19 (12 seats) | live hook state |
+| Seat-change threshold | 80% of filled seats, floor, min 2 → currently **6 of 8** | govern.c lines ~372-393 |
 | Hook / reward-param threshold | 100% of filled seats | govern.c |
 | L2 → L1 raise threshold | 51% of L2 members | govern.c |
 | Vote transport | `ttINVOKE` (99) with HookParameters `T`/`V` (+`L` on L2) | govern.c header spec |
@@ -23,7 +23,7 @@ Verified against the governance hook source and live ledger state (via `account_
 | Reward rate `RR` | 0.00333333… /month ≈ 4% p.a. (unchanged since genesis) | live state; XahauGenesis.h |
 | Reward delay `RD` | 2,600,000 s ≈ 30.09 days | live state; XahauGenesis.h |
 | L1 member reward | 1/20th of each user's claimed Balance Adjustment per claim | reward.c; whitepaper |
-| Member reward gate | seat account must be validator-master-key-derived AND in UNLReport active list | reward.c lines ~265–267 |
+| Member reward gate | seat account must be validator-master-key-derived AND in UNLReport active list | reward.c lines ~265-267 |
 | Precedent | S7 removed by 7-of-9 vote (only seat change ever); no member ever added | live hook state |
 
 **Primary sources:**
@@ -35,9 +35,9 @@ Verified against the governance hook source and live ledger state (via `account_
 - Secondary: https://xaman.app/blog/decoding-xahau-the-governance-game , https://gatehub.net/blog/the-genesis-of-xahau-an-overview-of-key-governance-and-mechanisms/
 - Explorers: https://xahau.xrplwin.com/validators/governance , https://xahauexplorer.com/en/governance
 
-**Caveat:** some secondary summaries garble the thresholds. Cite `govern.c` (seats 80%, hooks/rewards 100%, L2 raise 51%) — the source is unambiguous.
+**Caveat:** some secondary summaries garble the thresholds. Cite `govern.c` (seats 80%, hooks/rewards 100%, L2 raise 51%) - the source is unambiguous.
 
-## 2. OneXah — verified facts (from the `100-2` repo)
+## 2. OneXah - verified facts (from the `100-2` repo)
 
 Key sources inside `c:\Users\codyr\Desktop\Code\100-2`: `README.md`, `llms.txt`, `ai/BRAIN.md`, `ai/changelog.md`, `ai/library/hook-registry.md` (authoritative hook↔hash↔deployment lock), `ai/library/protocol-x-plan.md`, `frontend/src/BlogPage.jsx`, `frontend/src/DocsPage.jsx`.
 
@@ -65,16 +65,16 @@ Key sources inside `c:\Users\codyr\Desktop\Code\100-2`: `README.md`, `llms.txt`,
 - `ai/BRAIN.md:17`: dedicated `XahauNode` box, **separate from application infra**, synced and **proposing**; isolation is an explicit standing rule. Hostname `xahauval.cbotlabs.xyz` routed in `infra/cloudflare-tunnel/hosts.txt`.
 
 ### Novel public-good contributions
-1. Escape-hatch recovery primitive (`ai/library/escape-hatch.md`) — 22/22 testnet E2E, live on 5 accounts.
-2. Xahau Cron mechanics research (`ai/library/ba-cron.md`) — `lsfTshCollect` + `hsfCOLLECT` + Cron pseudo-tx requirement set, documented from scratch.
+1. Escape-hatch recovery primitive (`ai/library/escape-hatch.md`) - 22/22 testnet E2E, live on 5 accounts.
+2. Xahau Cron mechanics research (`ai/library/ba-cron.md`) - `lsfTshCollect` + `hsfCOLLECT` + Cron pseudo-tx requirement set, documented from scratch.
 3. Oden's Eye security registry + raven guards (freeze-only, fail-open, DAO-governed), live on 6 products.
 4. Standalone DAO-free AMM/lending/perps suite with live mainnet reference deployments.
-5. Fully published raw wire format (`llms.txt`) — keyless, anti-lock-in, AI-agent-friendly.
+5. Fully published raw wire format (`llms.txt`) - keyless, anti-lock-in, AI-agent-friendly.
 
 ## 3. Framing guardrails (keep the proposal honest)
 
 - **Do not claim "majority of Xahau traffic"** until §4.2 produces chain-verified numbers. Current defensible phrasing: "one of the largest sources of diverse, organic transactional traffic."
-- **Voter counts:** repo documents council of 3 (+admin) and active stakers, not "100s–1000s of voters." Frame the large voter base as trajectory ("growing toward"), not as present fact, until live counts are pulled.
+- **Voter counts:** repo documents council of 3 (+admin) and active stakers, not "100s-1000s of voters." Frame the large voter base as trajectory ("growing toward"), not as present fact, until live counts are pulled.
 - Audits in-repo are internal/AI-adversarial; no third-party auditor is named. Say "audited internally with published forensics," not "independently audited," unless Big Green Candle's audit work is documented and attached.
 
 ## 4. Pre-submission checklist (data prep still to do)
@@ -88,16 +88,16 @@ Key sources inside `c:\Users\codyr\Desktop\Code\100-2`: `README.md`, `llms.txt`,
 - [ ] `account_tx` counts + monthly time series for all product accounts (AMM ×3, lending ×2, perps, DAO, LPX staking, Oden's Eye).
 - [ ] Unique interacting accounts (proxy for users) across those accounts.
 - [ ] Total hook-emitted transaction counts; Cron tick counts; total fees burned by OneXah-related transactions.
-- [ ] OneXah share of total Xahau transaction volume over the last 30/90 days — this is the number that either supports or retires the "majority of traffic" claim.
+- [ ] OneXah share of total Xahau transaction volume over the last 30/90 days - this is the number that either supports or retires the "majority of traffic" claim.
 - [ ] Live DAO stats from `/api/public/v1/dao`: staker count, XXX holder count (richlist), proposal/vote participation counts.
 
 ### 4.3 People & security (supporting)
-- [ ] Short bios + roles + (optional) r-addresses for the full council: Cbot (Cody), Gadget (Mick), 7Rays (Mike), Big Green Candle (Dane) — Big Green Candle's audit work appears nowhere in the repos, so this must be written fresh.
+- [ ] Short bios + roles + (optional) r-addresses for the full council: Cbot (Cody), Gadget (Mick), 7Rays (Mike), Big Green Candle (Dane) - Big Green Candle's audit work appears nowhere in the repos, so this must be written fresh.
 - [ ] Big Green Candle (Dane): document the audit/security work performed so the security section can cite it.
-- [ ] Geographic spread of council/validators ("different continents") — one line each, no doxxing needed.
+- [ ] Geographic spread of council/validators ("different continents") - one line each, no doxxing needed.
 
 ### 4.4 Submission logistics
-- [ ] Contact channels for the 8 sitting members (XRPL-Labs, Titanium, Evernode, Digital Governance, GateHub, Projects L2, Community/Dev L2, Exchanges L2) — note the three L2 tables need internal 51% first, so brief their *members*, not just the table.
-- [ ] Choose the target seat (proposal currently says S9; S7 also open — S7 carries the "removed auditors" history, S9 is clean).
+- [ ] Contact channels for the 8 sitting members (XRPL-Labs, Titanium, Evernode, Digital Governance, GateHub, Projects L2, Community/Dev L2, Exchanges L2) - note the three L2 tables need internal 51% first, so brief their *members*, not just the table.
+- [ ] Choose the target seat (proposal currently says S9; S7 also open - S7 carries the "removed auditors" history, S9 is clean).
 - [ ] Publish this repo (or a rendered version) as the public manifesto; consider a one-page PDF executive summary for member outreach.
 - [ ] Optional: pre-stage the exact Invoke JSON per member with the final AccountID filled in, so a "yes" costs a member five minutes.
