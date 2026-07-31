@@ -92,8 +92,8 @@ Key sources inside `c:\Users\codyr\Desktop\Code\100-2`: `README.md`, `llms.txt`,
 - [ ] Live DAO stats from `/api/public/v1/dao`: staker count, XXX holder count (richlist), proposal/vote participation counts.
 
 ### 4.3 People & security (supporting)
-- [ ] Short bios + roles + (optional) r-addresses for the full council: Cbot, Gadget, Mick, 7Rays/Mike, Dane, Big Green Candle — Mick, Dane, and Big Green Candle appear nowhere in the repos, so this must be written fresh.
-- [ ] Big Green Candle: document the audit/security work performed so the security section can cite it.
+- [ ] Short bios + roles + (optional) r-addresses for the full council: Cbot (Cody), Gadget (Mick), 7Rays (Mike), Big Green Candle (Dane) — Big Green Candle's audit work appears nowhere in the repos, so this must be written fresh.
+- [ ] Big Green Candle (Dane): document the audit/security work performed so the security section can cite it.
 - [ ] Geographic spread of council/validators ("different continents") — one line each, no doxxing needed.
 
 ### 4.4 Submission logistics

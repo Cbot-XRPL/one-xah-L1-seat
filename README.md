@@ -99,12 +99,10 @@ A trusted council spanning multiple continents, with role coverage across the fu
 
 | Member | Role |
 |---|---|
-| **Cbot** | Founder, hook/contract development; Xahau validator operator |
-| **Gadget** | DevOps — elected to the council by on-chain community vote (PID 13) |
-| **Mick** | Network development |
+| **Cbot (Cody)** | Founder, hook/contract development; Xahau validator operator |
+| **Gadget (Mick)** | DevOps & network development — elected to the council by on-chain community vote (PID 13) |
 | **7Rays (Mike)** | Community outreach; on-chain council member |
-| **Dane** | Council member |
-| **Big Green Candle** | Audit & security |
+| **Big Green Candle (Dane)** | Audit & security |
 
 As the community grows toward hundreds and then thousands of token-holder voters, the L1 seat's positions will be directed the same way everything else in Protocol X is: proposed openly, voted by stake, co-signed by council, executed on-chain. **A vote for this seat is a vote to put a community at the table.**
 
