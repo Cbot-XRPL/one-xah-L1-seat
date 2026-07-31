@@ -145,12 +145,3 @@ We welcome due diligence. Every claim in this document is either verifiable on-c
 
 - **[docs/on-chain-vote-guide.md](docs/on-chain-vote-guide.md)** — exact voting mechanics for sitting L1 members, per `govern.c`
 - **[docs/data-room.md](docs/data-room.md)** — verified facts with sources, the current L1 table state, and the open data-prep checklist before formal submission
-
-## Primary references
-
-- Xahau Governance Game docs — https://xahau.network/docs/features/governance-game
-- Governance hook source — https://github.com/Xahau/xahaud/blob/dev/hook/genesis/govern.c
-- Reward hook source — https://github.com/Xahau/xahaud/blob/dev/hook/genesis/reward.c
-- Genesis membership & parameters — https://github.com/Xahau/xahaud/blob/dev/src/xrpld/app/tx/detail/XahauGenesis.h
-- Xahau Whitepaper — https://xahau.network/Xahau-Whitepaper.pdf
-- One Xahau — https://onexah.io
