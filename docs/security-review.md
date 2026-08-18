@@ -1,6 +1,6 @@
 # Security review — scope, method, and what has actually been verified
 
-**Reviewer:** Dane Brown (Big Green Candle), Kairo Vault Technologies GK — council member, Audit & security
+**Reviewer:** Dane Brown (Huge Green Candle), Kairo Vault Technologies GK — council member, Audit & security
 **Status:** ongoing programme, not a completed audit
 **Last on-chain re-confirmation:** 2026-08-19
 
