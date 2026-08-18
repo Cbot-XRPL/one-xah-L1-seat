@@ -75,7 +75,8 @@ Key sources inside `c:\Users\codyr\Desktop\Code\100-2`: `README.md`, `llms.txt`,
 
 - **Do not claim "majority of Xahau traffic"** until §4.2 produces chain-verified numbers. Current defensible phrasing: "one of the largest sources of diverse, organic transactional traffic."
 - **Voter counts:** repo documents council of 3 (+admin) and active stakers, not "100s-1000s of voters." Frame the large voter base as trajectory ("growing toward"), not as present fact, until live counts are pulled.
-- Audits in-repo are internal/AI-adversarial; no third-party auditor is named. Say "audited internally with published forensics," not "independently audited," unless Big Green Candle's audit work is documented and attached.
+- Audits in-repo are internal/AI-adversarial; no third-party auditor is named. Say "audited internally with published forensics," **never "independently audited."**
+- **Big Green Candle's security work does not unlock an independence claim** — he holds a council seat, so the work is insider work, however reproducible. Documenting it (now done, see [security-review.md](security-review.md)) lets the proposal describe a **published, reproducible verification method** with byte-exact source-to-deployment results; it does **not** let it say "independently audited" or "third-party audited." An independence claim requires commissioning a reviewer with no council seat and no governance stake. See [security-review.md §0](security-review.md#0-independence--read-this-before-citing-anything-below) for the exact permitted phrasings — an overstated independence claim discovered during member due diligence would discount the whole submission.
 
 ## 4. Pre-submission checklist (data prep still to do)
 
@@ -92,8 +93,9 @@ Key sources inside `c:\Users\codyr\Desktop\Code\100-2`: `README.md`, `llms.txt`,
 - [ ] Live DAO stats from `/api/public/v1/dao`: staker count, XXX holder count (richlist), proposal/vote participation counts.
 
 ### 4.3 People & security (supporting)
-- [ ] Short bios + roles + (optional) r-addresses for the full council: Cbot (Cody), Gadget (Mick), 7Rays (Mike), Big Green Candle (Dane) - Big Green Candle's audit work appears nowhere in the repos, so this must be written fresh.
-- [ ] Big Green Candle (Dane): document the audit/security work performed so the security section can cite it.
+- [ ] Short bios + roles + (optional) r-addresses for the full council: Cbot (Cody), Gadget (Mick), 7Rays (Mike), Big Green Candle (Dane).
+- [x] Big Green Candle (Dane): document the audit/security work performed so the security section can cite it → **[docs/security-review.md](security-review.md)** (method, Raven v4.8 `91366A46…` verified source==deployed==rebuilt, custody finding, open items, and the independence caveat).
+- [ ] Decide whether the fleet-sweep provenance gaps (reported privately 2026-08-12) are disclosed in the public proposal or held for member due diligence on request - **project's call, not the reviewer's**; security-review.md §3 currently states that they exist and are available on request without enumerating them.
 - [ ] Geographic spread of council/validators ("different continents") - one line each, no doxxing needed.
 
 ### 4.4 Submission logistics

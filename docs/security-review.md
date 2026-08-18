@@ -1,0 +1,136 @@
+# Security review — scope, method, and what has actually been verified
+
+**Reviewer:** Dane Brown (Big Green Candle), Kairo Vault Technologies GK — council member, Audit & security
+**Status:** ongoing programme, not a completed audit
+**Last on-chain re-confirmation:** 2026-08-19
+
+This document exists so the proposal can describe its security posture in terms a sitting L1 member can
+check, rather than in adjectives. It closes data-room items §4.3 (document the audit/security work) and
+tightens the §3 framing guardrail.
+
+---
+
+## 0. Independence — read this before citing anything below
+
+**This is not a third-party independent audit, and the proposal must not describe it as one.**
+
+The reviewer sits on the OneXah DAO council in the Audit & security role. That is an *insider* position.
+Work performed from inside a project — however rigorous the method, however reproducible the evidence — does
+not carry the independence property that "independently audited" claims to a governance table.
+
+Accurate phrasings:
+
+- ✅ "Security work is performed by a council member with a published, reproducible method; every claim below
+  is independently re-checkable by any third party from public chain data."
+- ✅ "Hooks are verified source-to-deployment with byte-exact reproduction; the verification method is public
+  and the results are falsifiable."
+- ❌ "Independently audited."
+- ❌ "Third-party audited."
+- ❌ "Audited by Kairo Vault Technologies" *(implies an arms-length engagement that has not occurred)*.
+
+The distinction matters commercially and it matters here: a sitting member who discovers an overstated
+independence claim during due diligence will discount everything else in the submission. The honest framing
+is stronger than the overstated one, because the *method* is reproducible by anyone who doubts it.
+
+If OneXah later wants a genuinely independent review, it has to be commissioned from a party with no council
+seat and no governance stake.
+
+---
+
+## 1. Method
+
+The standard applied is **re-derivation, fail-closed**:
+
+1. **Two independent nodes.** Every on-chain read is taken from at least two operators
+   (`xahau.network`, `xahau.org`). Disagreement between nodes is treated as fatal and stops the check —
+   it is never silently resolved by preferring one node.
+2. **Source == deployed.** A hook is only "verified" if the repository source builds to bytecode whose
+   SHA-512-half matches the `HookDefinition` `CreateCode` actually live on mainnet, by `HookHash`.
+3. **Reproduced, not just compared.** Where possible the WASM is rebuilt from `.c` using the project's own
+   build container and flags, and the resulting hash compared. A matching checked-in `.wasm` is weaker
+   evidence than a rebuild that lands on the same hash.
+4. **Behaviour read from the import table and source**, not from documentation. What a hook *can* do is
+   bounded by the host functions it imports and the transaction types it emits.
+5. **Claims are scoped to what was tested.** Anything not established by the above is written down as an
+   open item rather than assumed safe.
+
+---
+
+## 2. Verified: the Raven guard hook
+
+The Odin's Eye Raven guard is installed across the OneXah protocol accounts, so its custody properties are
+load-bearing for the whole stack.
+
+| Property | Result |
+|---|---|
+| Build | Raven v4.8 |
+| `HookHash` | `91366A468CFBACE50A9105993D08091D0F0FDDE890D738473EEAE4850DF46D02` |
+| Deployed size | 30,800 bytes |
+| Source == deployed | ✅ repo `raven.wasm` SHA-512[:32] byte-identical to on-chain `CreateCode` |
+| Independently rebuilt | ✅ rebuilt from `raven.c` via the project's own buildbox (`-O3`, stripped) → identical hash |
+| Nodes agreeing | 2 (`xahau.network`, `xahau.org`) |
+| Re-confirmed live | 2026-08-19 |
+
+**Custody finding — the one that matters.** `raven.c` (790 lines) imports 20 host functions and emits
+exactly two transaction types: `Invoke` (99) for reports to the Eye, and `TrustSet` (20) for issuer-scoped
+freeze/thaw. **There is no `Payment` emission path anywhere in the hook.** A guard hook installed on an
+account holding user funds therefore cannot move those funds. The Eye, operator and admin control surface
+(`LBADD`/`LBDEL`/`FRZ`/`THAW`/`SETCFG`/`SETADMIN`) is a *control* surface, not a custody one.
+
+**Honest limit on that finding:** the no-payment property is established by reading the source and the import
+table, and by the byte-exact source==deployed chain. It is **not** a machine-checked proof — a whole-hook
+conservation prover did not converge at 30,800 bytes. It is a strong, reproducible argument, not a theorem.
+
+**Design property, stated plainly:** the guard **fails open** on a registry read miss. If the Eye is
+unreachable, transactions pass rather than halt. This is a deliberate availability-over-enforcement tradeoff,
+documented as such by the Odin's Eye architecture notes, and it is defensible for a guard sitting in front of
+third-party payments. It does mean the guard is not an enforcement guarantee under Eye unavailability, and
+the proposal should not describe it as one.
+
+Reference: KVT verification note `KV-IV-2026-0812-001`.
+
+---
+
+## 3. In progress: fleet-wide source-to-deployment sweep
+
+A sweep of the live hooks across the OneXah protocol accounts (AMM pools, lending markets, perps, DAO,
+staking, faucet, Oden's Eye) has been run against two nodes using the method in §1.
+
+**Result:** the large majority of live hooks reproduce from the audit repository. A minority do **not** —
+these are provenance gaps, meaning the exact source of a live build is not preserved where the repository's
+own convention says it should be. To be precise about severity:
+
+- These are **provenance** gaps, not known vulnerabilities. Nothing here is a demonstrated exploit.
+- They matter anyway, because "the source of every live build is preserved" is a property the project
+  claims, and for the affected hooks it is currently not true.
+
+The specific hooks and accounts were reported to the OneXah engineering lead on 2026-08-12 with the
+supporting hashes, and remediation is tracked privately. They are deliberately not enumerated in this public
+proposal repository — that disclosure decision belongs to the project, not to the reviewer.
+
+**A sitting L1 member conducting due diligence is entitled to the full sweep on request.** That is the point
+of writing this section rather than omitting it.
+
+---
+
+## 4. Open items
+
+- [ ] Publish the sweep's remediation status once the affected live builds have tagged source.
+- [ ] Machine-checked (rather than source-read) proof of the Raven no-payment property.
+- [ ] Verification of the escape-hatch primitive's stated invariant — that no key is ever re-armed —
+      against deployed bytecode rather than documentation.
+- [ ] Independent (non-council) review, if the proposal intends to make an independence claim at all.
+
+---
+
+## 5. What this section supports in the proposal
+
+The defensible security claim for the L1 submission is:
+
+> Hooks are verified source-to-deployment against mainnet across two independent nodes, with byte-exact
+> rebuilds; the Raven guard installed across the protocol accounts has been shown to have no fund-moving
+> path; the verification method is published and reproducible by any third party; and provenance gaps found
+> during that work are tracked and disclosable on request.
+
+That is a stronger claim than "audited", because every part of it can be checked by a skeptic with a node
+and an afternoon.

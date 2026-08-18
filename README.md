@@ -82,6 +82,10 @@ These are chain-level contributions any Xahau project can adopt, born from runni
 
 Every live hook is hash-locked with recorded lineage; every mainnet SetHook is preceded and followed by full-namespace state snapshots ("state byte-identical" is our standard of proof); testnet battle-testing is mandatory before any mainnet change; and when an exploit was found in June 2026, it was contained, forensically documented, and hardened against within days - in public changelogs. "Verify on-chain before claiming 'done' or 'broken' - never trust a stale doc" is a standing engineering rule.
 
+Our council's Audit & security seat maintains a **published, reproducible verification method** rather than an adjective: hooks are checked source-to-deployment against mainnet across two independent nodes, with byte-exact rebuilds from source. The Raven guard installed across our protocol accounts is verified this way (v4.8, `HookHash 91366A46…`, 30,800 bytes, source == deployed == independently rebuilt) and shown to have **no fund-moving emission path** - a guard on an account holding user funds cannot move those funds. Method, evidence, honest limits and open items: **[docs/security-review.md](docs/security-review.md)**.
+
+We state plainly that this is **insider work, not a third-party audit** - the reviewer holds a council seat. We would rather a sitting member read a reproducible method than an unearned independence claim; every result above is re-checkable by any third party from public chain data.
+
 ---
 
 ## 3. The DAO - why this seat represents a community
@@ -145,3 +149,4 @@ We welcome due diligence. Every claim in this document is either verifiable on-c
 
 - **[docs/on-chain-vote-guide.md](docs/on-chain-vote-guide.md)** - exact voting mechanics for sitting L1 members, per `govern.c`
 - **[docs/data-room.md](docs/data-room.md)** - verified facts with sources, the current L1 table state, and the open data-prep checklist before formal submission
+- **[docs/security-review.md](docs/security-review.md)** - security verification method, what has actually been checked on-chain, open items, and the independence caveat
