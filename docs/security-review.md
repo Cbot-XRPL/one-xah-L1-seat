@@ -41,9 +41,15 @@ seat and no governance stake.
 
 The standard applied is **re-derivation, fail-closed**:
 
-1. **Two independent nodes.** Every on-chain read is taken from at least two operators
-   (`xahau.network`, `xahau.org`). Disagreement between nodes is treated as fatal and stops the check —
-   it is never silently resolved by preferring one node.
+1. **Two independent node endpoints, and an honest word about what that is worth.** Every on-chain read is
+   taken from at least two endpoints (`xahau.network`, `xahau.org`), which report distinct `pubkey_node`
+   identities — so they are genuinely distinct servers, not one box behind two names. Disagreement between
+   them is treated as fatal and stops the check; it is never silently resolved by preferring one node.
+   **But endpoint diversity is not operator diversity.** Both domains are Xahau-core-associated and both sit
+   behind the same CDN, so a common operator cannot be ruled out, and a fault or falsehood originating with
+   that operator would appear on both. The gold standard is agreement across *separately operated*
+   infrastructure; that is an open item (§4), not a claim being made here. Every result below is stated with
+   the hash and size so a member can re-derive it on any node they trust, including their own.
 2. **Source == deployed.** A hook is only "verified" if the repository source builds to bytecode whose
    SHA-512-half matches the `HookDefinition` `CreateCode` actually live on mainnet, by `HookHash`.
 3. **Reproduced, not just compared.** Where possible the WASM is rebuilt from `.c` using the project's own
@@ -68,8 +74,16 @@ load-bearing for the whole stack.
 | Deployed size | 30,800 bytes |
 | Source == deployed | ✅ repo `raven.wasm` SHA-512[:32] byte-identical to on-chain `CreateCode` |
 | Independently rebuilt | ✅ rebuilt from `raven.c` via the project's own buildbox (`-O3`, stripped) → identical hash |
-| Nodes agreeing | 2 (`xahau.network`, `xahau.org`) |
+| Endpoints agreeing | 2 (`xahau.network`, `xahau.org`; see §1 on operator diversity) |
+| Installed on | **all 8 protocol accounts** — AMM ×3, Lending ×2, Perps, LPX staking, DAO |
 | Re-confirmed live | 2026-08-19 |
+
+**Fleet coverage is current, and it improved.** As of 2026-08-19 the verified build `91366A46…` is installed
+on every one of the eight protocol accounts checked (AMM XAH/EVR, XAH/XXX, XAH/RVN; Lending XAH, EVR; Perps;
+LPX staking; DAO). An earlier check on 2026-08-12 found most of the fleet still on an older raven build that
+had *not* been through this verification, with `91366A46…` only partly rolled out. That gap has since closed.
+This is a time-sensitive fact: it is true at the ledger checked on the date stated, and it should be re-run
+before the formal submission rather than quoted from here.
 
 **Custody finding — the one that matters.** `raven.c` (790 lines) imports 20 host functions and emits
 exactly two transaction types: `Invoke` (99) for reports to the Eye, and `TrustSet` (20) for issuer-scoped
@@ -77,9 +91,15 @@ freeze/thaw. **There is no `Payment` emission path anywhere in the hook.** A gua
 account holding user funds therefore cannot move those funds. The Eye, operator and admin control surface
 (`LBADD`/`LBDEL`/`FRZ`/`THAW`/`SETCFG`/`SETADMIN`) is a *control* surface, not a custody one.
 
-**Honest limit on that finding:** the no-payment property is established by reading the source and the import
-table, and by the byte-exact source==deployed chain. It is **not** a machine-checked proof — a whole-hook
-conservation prover did not converge at 30,800 bytes. It is a strong, reproducible argument, not a theorem.
+**Honest limits on that finding**, both of which matter:
+
+- The no-payment property is established by **reading** the source and the import table, not by a
+  machine-checked proof — a whole-hook conservation prover did not converge at 30,800 bytes. It is a strong,
+  reproducible argument, not a theorem.
+- That source reading was performed on 2026-08-12. It carries forward to today only because the deployed
+  bytecode is **byte-identical** — same `HookHash`, same 30,800 bytes, re-pulled 2026-08-19. If the hash
+  changes, the finding expires with it and the analysis must be redone. A hash is the unit of trust here,
+  not a date.
 
 **Design property, stated plainly:** the guard **fails open** on a registry read miss. If the Eye is
 unreachable, transactions pass rather than halt. This is a deliberate availability-over-enforcement tradeoff,
@@ -96,17 +116,25 @@ Reference: KVT verification note `KV-IV-2026-0812-001`.
 A sweep of the live hooks across the OneXah protocol accounts (AMM pools, lending markets, perps, DAO,
 staking, faucet, Oden's Eye) has been run against two nodes using the method in §1.
 
-**Result:** the large majority of live hooks reproduce from the audit repository. A minority do **not** —
+**Result:** the large majority of live hooks reproduce from the audit repository. A minority did **not** —
 these are provenance gaps, meaning the exact source of a live build is not preserved where the repository's
 own convention says it should be. To be precise about severity:
 
 - These are **provenance** gaps, not known vulnerabilities. Nothing here is a demonstrated exploit.
 - They matter anyway, because "the source of every live build is preserved" is a property the project
-  claims, and for the affected hooks it is currently not true.
+  claims, and for the affected hooks it was not true at the time of the sweep.
 
-The specific hooks and accounts were reported to the OneXah engineering lead on 2026-08-12 with the
-supporting hashes, and remediation is tracked privately. They are deliberately not enumerated in this public
-proposal repository — that disclosure decision belongs to the project, not to the reviewer.
+The specific hooks and accounts were reported to the OneXah engineering lead on 2026-08-12 with supporting
+hashes. They are deliberately not enumerated in this public proposal repository — that disclosure decision
+belongs to the project, not to the reviewer.
+
+**⚠️ This sweep is stale and must be re-run before submission.** A spot check of the deployed hook set on
+2026-08-19 shows the live fleet has changed materially since 2026-08-12: some hooks flagged then are no
+longer deployed, and at least one account now runs a build that matches the repository's main line where it
+previously did not. Some of the original findings therefore appear to have been remediated already. Others
+remain deployed. **No count of outstanding gaps is given here on purpose** — quoting a stale finding list at
+a team that has been fixing things is how a reviewer loses credibility, and the honest position is that the
+sweep needs re-running before anything is claimed either way.
 
 **A sitting L1 member conducting due diligence is entitled to the full sweep on request.** That is the point
 of writing this section rather than omitting it.
@@ -115,7 +143,10 @@ of writing this section rather than omitting it.
 
 ## 4. Open items
 
-- [ ] Publish the sweep's remediation status once the affected live builds have tagged source.
+- [ ] **Re-run the fleet source-to-deployment sweep** against the current live set (the 2026-08-12 results
+      are stale — see §3) and publish the remediation status.
+- [ ] **Confirm at least one read from a separately operated node** (§1) — current endpoint diversity does
+      not establish operator diversity, which is the standard this method is supposed to meet.
 - [ ] Machine-checked (rather than source-read) proof of the Raven no-payment property.
 - [ ] Verification of the escape-hatch primitive's stated invariant — that no key is ever re-armed —
       against deployed bytecode rather than documentation.
@@ -127,10 +158,13 @@ of writing this section rather than omitting it.
 
 The defensible security claim for the L1 submission is:
 
-> Hooks are verified source-to-deployment against mainnet across two independent nodes, with byte-exact
-> rebuilds; the Raven guard installed across the protocol accounts has been shown to have no fund-moving
-> path; the verification method is published and reproducible by any third party; and provenance gaps found
-> during that work are tracked and disclosable on request.
+> Hooks are verified source-to-deployment against mainnet, with byte-exact rebuilds from source; the Raven
+> guard — installed on all eight protocol accounts as of 2026-08-19 — has been shown to have no fund-moving
+> emission path; the verification method is published, its limits are stated, and every result is
+> reproducible by any third party from public chain data.
 
 That is a stronger claim than "audited", because every part of it can be checked by a skeptic with a node
 and an afternoon.
+
+Note what is deliberately absent from that paragraph: the words *independent*, *audited*, and any count of
+outstanding findings. Each was available and each would have been an overstatement.
