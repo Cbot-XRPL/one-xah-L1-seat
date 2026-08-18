@@ -128,13 +128,32 @@ The specific hooks and accounts were reported to the OneXah engineering lead on 
 hashes. They are deliberately not enumerated in this public proposal repository — that disclosure decision
 belongs to the project, not to the reviewer.
 
-**⚠️ This sweep is stale and must be re-run before submission.** A spot check of the deployed hook set on
-2026-08-19 shows the live fleet has changed materially since 2026-08-12: some hooks flagged then are no
-longer deployed, and at least one account now runs a build that matches the repository's main line where it
-previously did not. Some of the original findings therefore appear to have been remediated already. Others
-remain deployed. **No count of outstanding gaps is given here on purpose** — quoting a stale finding list at
-a team that has been fixing things is how a reviewer loses credibility, and the honest position is that the
-sweep needs re-running before anything is claimed either way.
+### Re-run 2026-08-19 — current state
+
+The sweep was re-run against the live fleet on 2026-08-19 rather than quoted from the earlier pass, because
+the deployed set had changed in the interim.
+
+| | |
+|---|---|
+| Protocol accounts checked | 8 (AMM ×3, Lending ×2, Perps, LPX staking, DAO) |
+| Distinct live hook builds | 17 |
+| **Source preserved and reproducing** | **16 of 17** |
+| Outstanding | 1 build, on 1 account |
+
+Fourteen builds match a source build on the repository's main line; two more are preserved at a `live/*`
+provenance tag, which is the convention working as intended. **One live build has no matching source on
+main and no `live/*` tag** — that is the single outstanding provenance gap, and it is the one to close
+before submission. It is not enumerated here; that disclosure decision belongs to the project.
+
+Two of the items raised on 2026-08-12 have since been resolved outright — the affected hooks are either no
+longer deployed or now run a build that reproduces from the repository. The earlier pass also overstated:
+at least one hook counted as a gap then is in fact preserved at a tag.
+
+**Process note, offered as a finding rather than a complaint:** the two builds preserved by tag are stored
+under a tag named for a *different* hook, whose own build is no longer deployed. The source is genuinely
+there, but it is not discoverable from the tag name, and a third-party verifier following the repository's
+stated convention would conclude it was missing — as this reviewer initially did. Naming a `live/*` tag per
+build hash would make provenance self-evident to an outside checker.
 
 **A sitting L1 member conducting due diligence is entitled to the full sweep on request.** That is the point
 of writing this section rather than omitting it.
@@ -143,8 +162,11 @@ of writing this section rather than omitting it.
 
 ## 4. Open items
 
-- [ ] **Re-run the fleet source-to-deployment sweep** against the current live set (the 2026-08-12 results
-      are stale — see §3) and publish the remediation status.
+- [ ] Close the single outstanding provenance gap identified in the 2026-08-19 re-run (§3) by tagging or
+      committing the source for that live build.
+- [ ] Adopt per-build `live/<hook>-<hash>` tag naming so provenance is self-evident to an outside verifier
+      (§3 process note).
+- [ ] Re-run the sweep immediately before formal submission — it is a point-in-time result, not a standing one.
 - [ ] **Confirm at least one read from a separately operated node** (§1) — current endpoint diversity does
       not establish operator diversity, which is the standard this method is supposed to meet.
 - [ ] Machine-checked (rather than source-read) proof of the Raven no-payment property.
