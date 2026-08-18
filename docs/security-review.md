@@ -1,6 +1,7 @@
 # Security review — scope, method, and what has actually been verified
 
-**Reviewer:** Dane Brown (Huge Green Candle), Kairo Vault Technologies GK — council member, Audit & security
+**Reviewer:** Dane Brown — Kairo Vault Technologies GK (Huge Green Candle)
+**Role:** OneXah DAO council, Audit & security — **an insider position, see §0**
 **Status:** ongoing programme, not a completed audit
 **Last on-chain re-confirmation:** 2026-08-19
 
