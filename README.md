@@ -82,6 +82,8 @@ These are chain-level contributions any Xahau project can adopt, born from runni
 
 Every live hook is hash-locked with recorded lineage; every mainnet SetHook is preceded and followed by full-namespace state snapshots ("state byte-identical" is our standard of proof); testnet battle-testing is mandatory before any mainnet change; and when an exploit was found in June 2026, it was contained, forensically documented, and hardened against within days - in public changelogs. "Verify on-chain before claiming 'done' or 'broken' - never trust a stale doc" is a standing engineering rule.
 
+Our Audit & security seat brings a published, reproducible verification method rather than an adjective. Both raven guard builds running across our accounts have been verified source-to-deployment and shown to have **no fund-moving emission path** — a guard on an account holding user funds cannot move those funds — and a sweep of 11 accounts found 19 of 21 live hook builds with preserved source. It is insider work, not a third-party audit, and we say so: every result is re-checkable by anyone with a node. Summary: **[docs/security-review.md](docs/security-review.md)**.
+
 ---
 
 ## 3. The DAO - why this seat represents a community
@@ -102,7 +104,7 @@ A trusted council spanning multiple continents, with role coverage across the fu
 | **Cbot (Cody)** | Founder, hook/contract development; Xahau validator operator |
 | **Gadget (Mick)** | DevOps & network development - elected to the council by on-chain community vote (PID 13) |
 | **7Rays (Mike)** | Community outreach; on-chain council member |
-| **Big Green Candle (Dane)** | Audit & security |
+| **Dane Brown — Kairo Vault Technologies GK** (Huge Green Candle) | Audit & security; on-chain verification |
 
 As the community grows toward hundreds and then thousands of token-holder voters, the L1 seat's positions will be directed the same way everything else in Protocol X is: proposed openly, voted by stake, co-signed by council, executed on-chain. **A vote for this seat is a vote to put a community at the table.**
 
@@ -145,3 +147,4 @@ We welcome due diligence. Every claim in this document is either verifiable on-c
 
 - **[docs/on-chain-vote-guide.md](docs/on-chain-vote-guide.md)** - exact voting mechanics for sitting L1 members, per `govern.c`
 - **[docs/data-room.md](docs/data-room.md)** - verified facts with sources, the current L1 table state, and the open data-prep checklist before formal submission
+- **[docs/security-review.md](docs/security-review.md)** - security verification method, what has actually been checked on-chain, open items, and the independence caveat
