@@ -84,12 +84,20 @@ build `91366A46…` is installed on nine of the eleven accounts swept (AMM XAH/E
 XAH, EVR; Perps; LPX staking; DAO; Faucet). An earlier check on 2026-08-12 found most of the fleet still on
 an older raven that had not been through this verification, so this is a real improvement.
 
-**The exception:** the ELP staking account still runs the older raven build `D9BD75DD` (v4.6), which has
-**not** been through the verification in this section. Its source is preserved at a `live/*` tag, so this is
-not a provenance gap — but the custody finding below was established against `91366A46…` and **does not
-carry to `D9BD75DD`**. Either that account should be upgraded to the verified build, or `D9BD75DD` should be
-verified on its own terms. (The eleventh account, Oden's Eye, runs the registry hook rather than a guard, so
-no raven is expected there.)
+**The exception, now also verified.** The ELP staking account runs the older raven `D9BD75DD` (v4.6, 25,512
+bytes). Rather than leave that as an open risk, it was verified on its own terms on 2026-08-19:
+
+| Check | Result |
+|---|---|
+| Source == deployed | ✅ `live/raven-D9BD75DD` tag wasm byte-identical to on-chain `CreateCode`, on both endpoints |
+| Host imports | 20 — the same set as v4.8 |
+| Emission templates | 4 × `Invoke` (99) + 1 × `TrustSet` (20) — **identical emission surface to v4.8** |
+| `Payment` emit template | **none** |
+
+So the custody finding below **does** extend to `D9BD75DD`: that build cannot move funds either. The older
+raven on the ELP account is not a live risk. Upgrading it to `91366A46…` remains desirable for fleet
+uniformity, but it is a consistency item, not a security one. (The eleventh account, Oden's Eye, runs the
+registry hook rather than a guard, so no raven is expected there.)
 
 This is a point-in-time fact and must be re-run immediately before submission rather than quoted from here.
 
@@ -179,7 +187,10 @@ of writing this section rather than omitting it.
 - [ ] Re-run the sweep immediately before formal submission — it is a point-in-time result, not a standing one.
 - [ ] **Confirm at least one read from a separately operated node** (§1) — current endpoint diversity does
       not establish operator diversity, which is the standard this method is supposed to meet.
-- [ ] Machine-checked (rather than source-read) proof of the Raven no-payment property.
+- [ ] Machine-checked (rather than source-read) proof of the Raven no-payment property — currently
+      established for both live builds (`91366A46…`, `D9BD75DD`) by source and import-table reading.
+- [ ] Upgrade the ELP staking account to `91366A46…` for fleet uniformity (consistency, not security —
+      `D9BD75DD` is verified no-payment, see §2).
 - [ ] Verification of the escape-hatch primitive's stated invariant — that no key is ever re-armed —
       against deployed bytecode rather than documentation.
 - [ ] Independent (non-council) review, if the proposal intends to make an independence claim at all.
