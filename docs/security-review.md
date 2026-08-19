@@ -76,15 +76,22 @@ load-bearing for the whole stack.
 | Source == deployed | ✅ repo `raven.wasm` SHA-512[:32] byte-identical to on-chain `CreateCode` |
 | Independently rebuilt | ✅ rebuilt from `raven.c` via the project's own buildbox (`-O3`, stripped) → identical hash |
 | Endpoints agreeing | 2 (`xahau.network`, `xahau.org`; see §1 on operator diversity) |
-| Installed on | **all 8 protocol accounts** — AMM ×3, Lending ×2, Perps, LPX staking, DAO |
+| Installed on | **9 of the 11 accounts swept** — AMM ×3, Lending ×2, Perps, LPX staking, DAO, Faucet |
 | Re-confirmed live | 2026-08-19 |
 
-**Fleet coverage is current, and it improved.** As of 2026-08-19 the verified build `91366A46…` is installed
-on every one of the eight protocol accounts checked (AMM XAH/EVR, XAH/XXX, XAH/RVN; Lending XAH, EVR; Perps;
-LPX staking; DAO). An earlier check on 2026-08-12 found most of the fleet still on an older raven build that
-had *not* been through this verification, with `91366A46…` only partly rolled out. That gap has since closed.
-This is a time-sensitive fact: it is true at the ledger checked on the date stated, and it should be re-run
-before the formal submission rather than quoted from here.
+**Fleet coverage improved, but is NOT complete — and the exception matters.** As of 2026-08-19 the verified
+build `91366A46…` is installed on nine of the eleven accounts swept (AMM XAH/EVR, XAH/XXX, XAH/RVN; Lending
+XAH, EVR; Perps; LPX staking; DAO; Faucet). An earlier check on 2026-08-12 found most of the fleet still on
+an older raven that had not been through this verification, so this is a real improvement.
+
+**The exception:** the ELP staking account still runs the older raven build `D9BD75DD` (v4.6), which has
+**not** been through the verification in this section. Its source is preserved at a `live/*` tag, so this is
+not a provenance gap — but the custody finding below was established against `91366A46…` and **does not
+carry to `D9BD75DD`**. Either that account should be upgraded to the verified build, or `D9BD75DD` should be
+verified on its own terms. (The eleventh account, Oden's Eye, runs the registry hook rather than a guard, so
+no raven is expected there.)
+
+This is a point-in-time fact and must be re-run immediately before submission rather than quoted from here.
 
 **Custody finding — the one that matters.** `raven.c` (790 lines) imports 20 host functions and emits
 exactly two transaction types: `Invoke` (99) for reports to the Eye, and `TrustSet` (20) for issuer-scoped
@@ -136,15 +143,17 @@ the deployed set had changed in the interim.
 
 | | |
 |---|---|
-| Protocol accounts checked | 8 (AMM ×3, Lending ×2, Perps, LPX staking, DAO) |
-| Distinct live hook builds | 17 |
-| **Source preserved and reproducing** | **16 of 17** |
-| Outstanding | 1 build, on 1 account |
+| Accounts checked | 11 (AMM ×3, Lending ×2, Perps, LPX + ELP staking, DAO, Faucet, Oden's Eye) |
+| Distinct live hook builds | 21 |
+| **Source preserved and reproducing** | **19 of 21** (16 on main, 3 at a `live/*` tag) |
+| Outstanding | 2 builds, on 2 accounts |
 
-Fourteen builds match a source build on the repository's main line; two more are preserved at a `live/*`
-provenance tag, which is the convention working as intended. **One live build has no matching source on
-main and no `live/*` tag** — that is the single outstanding provenance gap, and it is the one to close
-before submission. It is not enumerated here; that disclosure decision belongs to the project.
+Sixteen builds match a source build on the repository's main line; three more are preserved at a `live/*`
+provenance tag, which is the convention working as intended. **Two live builds have no matching source on
+main and no `live/*` tag.** One is a DAO-stack hook and is the gap to close before submission. The other is
+the Oden's Eye registry hook — arguably out of scope, since Oden's Eye is a separate project whose source
+would not be expected to live in this repository; it is listed for completeness rather than as a criticism.
+Neither is enumerated here; that disclosure decision belongs to the project.
 
 Two of the items raised on 2026-08-12 have since been resolved outright — the affected hooks are either no
 longer deployed or now run a build that reproduces from the repository. The earlier pass also overstated:
