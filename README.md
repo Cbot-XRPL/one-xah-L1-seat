@@ -34,7 +34,7 @@ Everything is live on Xahau mainnet today:
 | **Lending** | Two deliberately oracle-free single-asset money markets (XAH, EVR). "Cross-asset borrowing requires a price oracle, and oracles are attack surface. Each pool is one asset, top to bottom." |
 | **Perpetuals** | XAH-margined 1-10× leveraged spot with on-chain TWAP oracle, funding rate, and permissionless liquidation. New markets are created **by DAO vote**, not admin action. |
 | **Protocol X DAO** | On-chain fee aggregation, emission, staking, bonding, and governance - ten hooks on one account. |
-| **Cross-chain swap** | XAH↔XRP, 2-signature, zero-fee - proven in both directions on mainnet (June 2026). |
+| **Cross-chain swap** | XAH↔XRP, is underlined and provided by XRPLlabs and Gatehub teleport system, which we utilise and provide to users in a seemless way. |
 | **GameFi hub & public API** | Aggregates Xahau play-to-earn projects; keyless CORS-open read API plus a fully documented raw on-chain wire format so anyone can build against our hooks without us. |
 
 A defining design property: **every position is a bearer token.** LP shares, lending deposits, and perps LP are real Xahau IOUs in the user's wallet. "Transfer the token, transfer the redemption right." Hooks compute redemption from the inbound IOU alone - never a sender-keyed lookup - so positions are tradable on the Xahau DEX, usable as collateral, and custodiable in any multisig.
@@ -100,7 +100,7 @@ A trusted council spanning multiple continents, with role coverage across the fu
 | Member | Role |
 |---|---|
 | **Cbot (Cody)** | Founder, hook/contract development; Xahau validator operator |
-| **Gadget (Mick)** | DevOps & network development - elected to the council by on-chain community vote (PID 13) |
+| **gadget78 (Mick)** | DevOps + within Evernode Community (also dev of evrPanel), bringing onexah to decentralized hosting - (elected to the council by on-chain community vote (PID 13) )|
 | **7Rays (Mike)** | Community outreach; on-chain council member |
 | **Big Green Candle (Dane)** | Audit & security |
 
