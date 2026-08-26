@@ -30,10 +30,10 @@ Everything is live on Xahau mainnet today:
 
 | Product | What it is |
 |---|---|
-| **AMM** | Constant-product pools (XAH/EVR, XAH/XXX, XAH/RVN). Remit-everywhere design: no pre-existing trustline ever required. |
+| **AMM** | Constant-product pools (XAH/EVR, XAH/XXX, XAH/RVN). Remit-everywhere design: no pre-existing trustline ever required. A per-pool fee switch routes the DAO's cut to the treasury in XAH. |
 | **Lending** | Two deliberately oracle-free single-asset money markets (XAH, EVR). "Cross-asset borrowing requires a price oracle, and oracles are attack surface. Each pool is one asset, top to bottom." |
 | **Perpetuals** | XAH-margined 1-10× leveraged spot with on-chain TWAP oracle, funding rate, and permissionless liquidation. New markets are created **by DAO vote**, not admin action. |
-| **Protocol X DAO** | On-chain fee aggregation, emission, staking, bonding, and governance - ten hooks on one account. |
+| **Protocol X DAO** | On-chain fee aggregation, emission, staking (with a staked-XXX yield boost), bonding, an autonomous XXX buyback-and-burn agent, and governance - ten hooks on one account. |
 | **Cross-chain swap** | XAH↔XRP, is underlined and provided by XRPLlabs and Gatehub teleport system, which we utilise and provide to users in a seemless way. |
 | **GameFi hub & public API** | Aggregates Xahau play-to-earn projects; keyless CORS-open read API plus a fully documented raw on-chain wire format so anyone can build against our hooks without us. |
 
@@ -54,8 +54,9 @@ Every swap, deposit, borrow, repayment, liquidation, perp open/close, stake, cla
 
 Documented footprint (see the [data room](docs/data-room.md) for sources and the live-metrics checklist):
 
-- **TVL ~$251k** (July 2026) with a visible growth curve from ~$20k in early June - >10× in five weeks.
+- **TVL grew >10x in five weeks** in mid-2026, from ~$20k in early June to ~$251k (a current figure is attached in the formal submission).
 - **DAO treasury ~247,000 XAH**, governed by on-chain vote (treasury spends execute as passed proposals, e.g. PID 10).
+- **81 active XXX stakers** with ~180,000 XXX staked into governance and rewards (August 2026).
 - **~29,000+ XAH/year** of Balance Adjustment yield claimed autonomously by our hooks - we reverse-engineered and documented Xahau's Cron mechanics to do it, and published the research.
 - 24h AMM volume on the EVR pool alone in the ~250k XAH order of magnitude at peak.
 - Hundreds of XAH in SetHook fees burned to the network across our upgrade history.
@@ -74,7 +75,7 @@ These are chain-level contributions any Xahau project can adopt, born from runni
 
 1. **The escape-hatch primitive** - solves the "Parity freeze" problem for blackholed hook accounts. A tiny pre-installed hook that, only after a supermajority vote with forced quorum and timelock, can drain stuck value to the DAO - and *never* re-arms a key. "No key is ever re-armed. Recovery = funds exit; admin never re-enters." Live on all five product accounts.
 2. **Xahau Cron research** - we documented the exact requirement set for autonomous cron execution (`lsfTshCollect` + `hsfCOLLECT` + the Cron ledger object materialized by pseudo-transaction) after discovering silently non-firing configurations, and proved autonomous Balance Adjustment claims on mainnet (+4,108 XAH in one tick).
-3. **Oden's Eye** - a freeze-only, DAO-governed, cross-protocol security registry with fail-open product-side guards, live across six product accounts. A shared security good for the chain.
+3. **Oden's Eye** - a freeze-only, DAO-governed, cross-protocol security registry with fail-open product-side guards, live fleet-wide across the DAO and every product account (v4.9 guard, source-verified). A shared security good for the chain, now extended by RVN/RLP staking that lets holders back individual ravens.
 4. **The standalone hook suite** - DAO-free AMM/lending/perps reference deployments any third party can install on their own account. Xahau public infrastructure, not just our product.
 5. **A fully open wire format** - our complete raw-transaction format (every HookParameter, hex-documented) is published keyless so builders and AI agents can integrate with the hooks directly, bypassing us entirely. Deliberate anti-lock-in.
 
@@ -92,7 +93,7 @@ The seat we propose is not a founder's seat. Protocol X governance is live and h
 
 - **Proposals are open** to any staker meeting the minimum, with a 100 XXX bond (burned/retained - governance is deflationary by design).
 - **Passage requires both** a stake-weighted community majority (`yes > no`) **and** at least one council co-signature. "Neither side can act alone… The council can't originate an outcome against the community's will; it can only assent to a direction the community already chose."
-- **Real outcomes on-chain already:** treasury spends (PID 10: 2,500 XAH community fund), emission product registration (PID 7, 11), a perps market created by vote (PID 12), and a **council member elected by community vote** (PID 13).
+- **Real outcomes on-chain already:** treasury spends (PID 10: 2,500 XAH community fund), emission product registration (PID 7, 11), a perps market created by vote (PID 12), and **two council members added by community vote** (Gadget, PID 13; Dane, PID 16).
 - **Master keys on all product accounts are disabled** in favor of 2-of-3 multisigs held by separate parties, with a published roadmap to full blackhole: "Non-custody and immutability stop being claims and become properties of the ledger."
 
 ### Council
