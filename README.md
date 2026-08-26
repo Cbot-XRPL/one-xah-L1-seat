@@ -82,6 +82,8 @@ These are chain-level contributions any Xahau project can adopt, born from runni
 
 Every live hook is hash-locked with recorded lineage; every mainnet SetHook is preceded and followed by full-namespace state snapshots ("state byte-identical" is our standard of proof); testnet battle-testing is mandatory before any mainnet change; and when an exploit was found in June 2026, it was contained, forensically documented, and hardened against within days - in public changelogs. "Verify on-chain before claiming 'done' or 'broken' - never trust a stale doc" is a standing engineering rule.
 
+Security is led in-house by **Cbot Labs (Cody)** — the primary audit and hook-engineering work behind the protocol. Every live hook is **verified byte-for-byte source-to-deployment** (repository source rebuilds to the exact live `HookHash`) and carries **`hookz` behavioural proofs and Xahau testnet battle-test proofs** before it ever reaches mainnet. Our guard hooks carry **no fund-moving path**: a guard installed on an account holding user funds cannot move those funds. **Kairo Vault Technologies (Dane Brown)**, our Audit & security council member, structured the verification write-up and reviewed that work on-chain — a security firm’s check; we’re straight that, as a council seat, it isn’t an independent third-party audit. Every byte-level result is re-checkable by anyone with a node. Current live builds: **[docs/live-hooks.md](docs/live-hooks.md)**; method: **[docs/security-review.md](docs/security-review.md)**.
+
 ---
 
 ## 3. The DAO - why this seat represents a community
@@ -99,10 +101,10 @@ A trusted council spanning multiple continents, with role coverage across the fu
 
 | Member | Role |
 |---|---|
-| **Cbot (Cody)** | Founder, hook/contract development; Xahau validator operator |
+| **Cbot (Cody) — Cbot Labs** | Founder; hook & contract development and the protocol’s primary security/audit work — byte-for-byte, `hookz`, and testnet proofs on every live hook; Xahau validator operator |
 | **gadget78 (Mick)** | DevOps + within Evernode Community (also dev of evrPanel), bringing onexah to decentralized hosting - (elected to the council by on-chain community vote (PID 13) )|
 | **7Rays (Mike)** | Community outreach; on-chain council member |
-| **Big Green Candle (Dane)** | Audit & security |
+| **Dane Brown — Kairo Vault Technologies GK** (Huge Green Candle) | Council member, Audit & security — structured the verification write-up and reviewed the work on-chain (a security firm; council seat, not an independent third-party audit) |
 
 As the community grows toward hundreds and then thousands of token-holder voters, the L1 seat's positions will be directed the same way everything else in Protocol X is: proposed openly, voted by stake, co-signed by council, executed on-chain. **A vote for this seat is a vote to put a community at the table.**
 
@@ -145,3 +147,4 @@ We welcome due diligence. Every claim in this document is either verifiable on-c
 
 - **[docs/on-chain-vote-guide.md](docs/on-chain-vote-guide.md)** - exact voting mechanics for sitting L1 members, per `govern.c`
 - **[docs/data-room.md](docs/data-room.md)** - verified facts with sources, the current L1 table state, and the open data-prep checklist before formal submission
+- **[docs/security-review.md](docs/security-review.md)** - security verification method, what has actually been checked on-chain, open items, and the independence caveat
