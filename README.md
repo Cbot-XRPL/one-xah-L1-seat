@@ -4,7 +4,7 @@
 **Submitted to:** The sitting members of the Xahau L1 Governance Table
 **Requested seat:** Any vacant L1 seat (S7, S9-S19) - proposed: **S9**
 **Status:** Draft for member review
-**Date:** July 2026
+**Date:** August 2026
 
 ---
 
@@ -30,10 +30,10 @@ Everything is live on Xahau mainnet today:
 
 | Product | What it is |
 |---|---|
-| **AMM** | Constant-product pools (XAH/EVR, XAH/XXX, XAH/RVN). Remit-everywhere design: no pre-existing trustline ever required. |
+| **AMM** | Constant-product pools (XAH/EVR, XAH/XXX, XAH/RVN). Remit-everywhere design: no pre-existing trustline ever required. A per-pool fee switch routes the DAO's cut to the treasury in XAH. |
 | **Lending** | Two deliberately oracle-free single-asset money markets (XAH, EVR). "Cross-asset borrowing requires a price oracle, and oracles are attack surface. Each pool is one asset, top to bottom." |
 | **Perpetuals** | XAH-margined 1-10× leveraged spot with on-chain TWAP oracle, funding rate, and permissionless liquidation. New markets are created **by DAO vote**, not admin action. |
-| **Protocol X DAO** | On-chain fee aggregation, emission, staking, bonding, and governance - ten hooks on one account. |
+| **Protocol X DAO** | On-chain fee aggregation, emission, staking (with a staked-XXX yield boost), bonding, an autonomous XXX buyback-and-burn agent, and governance - ten hooks on one account. |
 | **Cross-chain swap** | XAH↔XRP, is underpinned and provided by XRPLlabs and Gatehub teleport system, which we utilise and provide to users in a seamless way. |
 | **GameFi hub & public API** | Aggregates Xahau play-to-earn projects; keyless CORS-open read API plus a fully documented raw on-chain wire format so anyone can build against our hooks without us. |
 
@@ -54,8 +54,9 @@ Every swap, deposit, borrow, repayment, liquidation, perp open/close, stake, cla
 
 Documented footprint (see the [data room](docs/data-room.md) for sources and the live-metrics checklist):
 
-- **TVL ~$251k** (July 2026) with a visible growth curve from ~$20k in early June - >10× in five weeks.
+- **TVL grew >10x in five weeks** in mid-2026, from ~$20k in early June to ~$251k (a current figure is attached in the formal submission).
 - **DAO treasury ~247,000 XAH**, governed by on-chain vote (treasury spends execute as passed proposals, e.g. PID 10).
+- **81 active XXX stakers** with ~180,000 XXX staked into governance and rewards (August 2026).
 - **~29,000+ XAH/year** of Balance Adjustment yield claimed autonomously by our hooks - we reverse-engineered and documented Xahau's Cron mechanics to do it, and published the research.
 - 24h AMM volume on the EVR pool alone in the ~250k XAH order of magnitude at peak.
 - Hundreds of XAH in SetHook fees burned to the network across our upgrade history.
@@ -74,13 +75,15 @@ These are chain-level contributions any Xahau project can adopt, born from runni
 
 1. **The escape-hatch primitive** - solves the "Parity freeze" problem for blackholed hook accounts. A tiny pre-installed hook that, only after a supermajority vote with forced quorum and timelock, can drain stuck value to the DAO - and *never* re-arms a key. "No key is ever re-armed. Recovery = funds exit; admin never re-enters." Live on all five product accounts.
 2. **Xahau Cron research** - we documented the exact requirement set for autonomous cron execution (`lsfTshCollect` + `hsfCOLLECT` + the Cron ledger object materialized by pseudo-transaction) after discovering silently non-firing configurations, and proved autonomous Balance Adjustment claims on mainnet (+4,108 XAH in one tick).
-3. **Oden's Eye** - a freeze-only, DAO-governed, cross-protocol security registry with fail-open product-side guards, live across six product accounts. A shared security good for the chain.
+3. **Oden's Eye** - a freeze-only, DAO-governed, cross-protocol security registry with fail-open product-side guards, live fleet-wide across the DAO and every product account (v4.9 guard, source-verified). A shared security good for the chain, now extended by RVN/RLP staking that lets holders back individual ravens.
 4. **The standalone hook suite** - DAO-free AMM/lending/perps reference deployments any third party can install on their own account. Xahau public infrastructure, not just our product.
 5. **A fully open wire format** - our complete raw-transaction format (every HookParameter, hex-documented) is published keyless so builders and AI agents can integrate with the hooks directly, bypassing us entirely. Deliberate anti-lock-in.
 
 ### 2.4 Security discipline
 
 Every live hook is hash-locked with recorded lineage; every mainnet SetHook is preceded and followed by full-namespace state snapshots ("state byte-identical" is our standard of proof); testnet battle-testing is mandatory before any mainnet change; and when an exploit was found in June 2026, it was contained, forensically documented, and hardened against within days - in public changelogs. "Verify on-chain before claiming 'done' or 'broken' - never trust a stale doc" is a standing engineering rule.
+
+Security is led in-house by **Cbot Labs (Cody)** - the primary audit and hook-engineering work behind the protocol. Every live hook is **verified byte-for-byte source-to-deployment** (repository source rebuilds to the exact live `HookHash`) and carries **`hookz` behavioural proofs and Xahau testnet battle-test proofs** before it ever reaches mainnet. Our guard hooks carry **no fund-moving path**: a guard installed on an account holding user funds cannot move those funds. **Kairo Vault Technologies (Dane Brown)**, our Audit & security council member, structured the verification write-up and reviewed that work on-chain - a security firm’s check; we’re straight that, as a council seat, it isn’t an independent third-party audit. Every byte-level result is re-checkable by anyone with a node. Current live builds: **[docs/live-hooks.md](docs/live-hooks.md)**; method: **[docs/security-review.md](docs/security-review.md)**.
 
 ---
 
@@ -90,7 +93,7 @@ The seat we propose is not a founder's seat. Protocol X governance is live and h
 
 - **Proposals are open** to any staker meeting the minimum, with a 100 XXX bond (burned/retained - governance is deflationary by design).
 - **Passage requires both** a stake-weighted community majority (`yes > no`) **and** at least one council co-signature. "Neither side can act alone… The council can't originate an outcome against the community's will; it can only assent to a direction the community already chose."
-- **Real outcomes on-chain already:** treasury spends (PID 10: 2,500 XAH community fund), emission product registration (PID 7, 11), a perps market created by vote (PID 12), and a **council member elected by community vote** (PID 13).
+- **Real outcomes on-chain already:** treasury spends (PID 10: 2,500 XAH community fund), emission product registration (PID 7, 11), a perps market created by vote (PID 12), and **two council members added by community vote** (Gadget, PID 13; Dane, PID 16).
 - **Master keys on all product accounts are disabled** in favor of 2-of-3 multisigs held by separate parties, with a published roadmap to full blackhole: "Non-custody and immutability stop being claims and become properties of the ledger."
 
 ### Council
@@ -99,10 +102,10 @@ A trusted council spanning multiple continents, with role coverage across the fu
 
 | Member | Role |
 |---|---|
-| **Cbot (Cody)** | Founder, hook/contract development; Xahau validator operator |
+| **Cbot (Cody) - Cbot Labs** | Founder; hook & contract development and the protocol’s primary security/audit work - byte-for-byte, `hookz`, and testnet proofs on every live hook; Xahau validator operator |
 | **gadget78 (Mick)** | DevOps; active in the Evernode Community, developer of evrPanel, bringing OneXah to decentralized hosting. (Elected to the council by on-chain community vote PID 13).
 | **7Rays (Mike)** | Community outreach; on-chain council member |
-| **Big Green Candle (Dane)** | Audit & security |
+| **Dane Brown - Kairo Vault Technologies GK** (Huge Green Candle) | Council member, Audit & security - structured the verification write-up and reviewed the work on-chain (a security firm; council seat, not an independent third-party audit) |
 
 As the community grows toward hundreds and then thousands of token-holder voters, the L1 seat's positions will be directed the same way everything else in Protocol X is: proposed openly, voted by stake, co-signed by council, executed on-chain. **A vote for this seat is a vote to put a community at the table.**
 
@@ -145,3 +148,4 @@ We welcome due diligence. Every claim in this document is either verifiable on-c
 
 - **[docs/on-chain-vote-guide.md](docs/on-chain-vote-guide.md)** - exact voting mechanics for sitting L1 members, per `govern.c`
 - **[docs/data-room.md](docs/data-room.md)** - verified facts with sources, the current L1 table state, and the open data-prep checklist before formal submission
+- **[docs/security-review.md](docs/security-review.md)** - security verification method, what has actually been checked on-chain, open items, and the independence caveat
