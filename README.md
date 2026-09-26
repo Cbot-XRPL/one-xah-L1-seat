@@ -14,7 +14,7 @@ OneXah DAO respectfully proposes that it be voted into a vacant seat on the Xaha
 
 The case rests on two pillars:
 
-1. **Long-term infrastructure contribution.** Cbot, OneXah's founder, is a long-standing Xahau supporter and validator operator, providing hardware and consensus support to the network. The proposed seat account will be derived from an actively validating master key, satisfying the UNLReport eligibility gate the reward hook enforces - we intend to *earn* the seat's rewards the way the whitepaper intends: by validating reliably.
+1. **Long-term infrastructure contribution.** Cbot, OneXah's founder, is a long-standing Xahau supporter and validator operator, providing hardware and consensus support to the network. The proposed seat account will be derived from an actively validating master key, satisfying the UNLReport eligibility gate the reward hook enforces - we intend to *earn* the seat's rewards the way the whitepaper intends: by validating reliably. Beyond the validator, Cbot Labs runs a **public Xahau node cluster** - free, keyless JSON-RPC and WebSocket endpoints on mainnet, growing node by node ([cbotlabs.xyz](https://cbotlabs.xyz)).
 
 2. **Momentum-driving, user-generated contribution.** OneXah is one of the largest sources of diverse, organic transactional traffic on Xahau today: a live, non-custodial DeFi ecosystem - AMM, lending, perpetuals, staking, cross-chain swap, GameFi hub - where **every protocol is a Xahau Hook** and every user action is a signed Xahau transaction. The protocols are governed by an on-chain DAO with a global council and a growing community of token-holder voters, so the seat would represent not one company but a **community-governed constituency**.
 
@@ -38,6 +38,18 @@ Everything is live on Xahau mainnet today:
 | **GameFi hub & public API** | Aggregates Xahau play-to-earn projects; keyless CORS-open read API plus a fully documented raw on-chain wire format so anyone can build against our hooks without us. |
 
 A defining design property: **every position is a bearer token.** LP shares, lending deposits, and perps LP are real Xahau IOUs in the user's wallet. "Transfer the token, transfer the redemption right." Hooks compute redemption from the inbound IOU alone - never a sender-keyed lookup - so positions are tradable on the Xahau DEX, usable as collateral, and custodiable in any multisig.
+
+### The wider Cbot Labs build
+
+**Cbot Labs** is the engineering group behind One Xahau - and One Xahau is not the only thing it runs on Xahau. Three lines of work, one team, all Xahau-native:
+
+| Line | What it is | Where |
+|---|---|---|
+| **One Xahau / Protocol X** | The DeFi ecosystem above - AMM, lending, perpetuals, DAO, GameFi - every protocol a native Hook, governed on-chain. | onexah.io |
+| **Xahau Vault** | A live NFT marketplace and wallet for Xahau-native collections, running **novel hooks we wrote** rather than a custodial backend: an ephemeral buy-now broker, a two-sided bundle swap hook, a timed bundle auction hook, and a mint/remit contract hook with callback-confirmed fee routes. Self-hosted end to end - crawler, metadata resolver, media cache, bridge worker and public API on our own infrastructure. | xahauvault.com |
+| **Xahau public cluster** | Free, keyless JSON-RPC and WebSocket endpoints on Xahau mainnet, plus a deep-history node. Two nodes live, a third already written into the inventory and waiting on hardware. | cbotlabs.xyz |
+
+The seat account is a Cbot Labs validator. These are listed together on purpose: the same operator behind that key also serves public RPC to the chain, ships hook primitives other projects can install, and answers to a DAO for the protocol side.
 
 > "Xahau took a different path… small native programs called Hooks that run *inside* the ledger, attached to accounts, validated by every node. No EVM. No mempool. No off-chain executor. Just deterministic WebAssembly that finishes before the transaction commits."
 > *(One Xahau, "Why Xahau")*
@@ -67,6 +79,16 @@ Documented footprint (see the [data room](docs/data-room.md) for sources and the
 
 Cbot operates a **proposing Xahau validator** on dedicated, isolated hardware (separate box from all application infrastructure), alongside self-hosted node, RPC, and web infrastructure across multiple domains. This is a real independent operator with a multi-year Xahau track record - not a hosted app on rented keys.
 
+**The public cluster.** Alongside the validator - and deliberately isolated from it, on separate hardware, with the validator host guarded out of the cluster tooling *in code* rather than by convention - Cbot Labs runs a public Xahau node cluster: one deep-history node and one API node live today, a third already provisioned in inventory and waiting on RAM and NVMe. It is free and keyless for anyone to use:
+
+| Protocol | Endpoint | Use |
+|---|---|---|
+| JSON-RPC | `https://cluster.cbotlabs.xyz` | Stateless queries (POST only) |
+| WebSocket | `wss://ws-cluster.cbotlabs.xyz` | Subscriptions and streaming |
+| Status | `https://cbotlabs.xyz/api/cluster` | Machine-readable live node state |
+
+These are stock `xahaud` nodes that **do not validate** - trust comes from the published Xahau UNL, not from us. Admin methods (`can_delete`, `stop`, `peers`) return 403 and the admin port refuses network connections; rate limiting is applied per client at the edge (15 req/s, burst 30, 8 WS connections - verified under load at 178 req/s in, 157 rejected with 429); the deep node carries a rolling history window several times the API node's. Live per-node ledger, history window, peer count and uptime are published on the cluster page and refresh every 20 seconds. Availability is best-effort with no SLA, stated plainly on the page - this is a public good, not a product. It grows node by node as hardware lands, and the build-out plan is public.
+
 Per the reward hook (`reward.c`), an L1 seat only earns governance rewards while its account, derived from a validator master key, appears in the on-ledger UNLReport's active validator list. **We are proposing a seat that validates.** The seat account will be the account derived from our validator's master key, and we commit to maintaining UNL-grade reliability as a condition we expect the table to hold us to.
 
 ### 2.3 Novel public goods contributed to the Xahau ecosystem
@@ -78,6 +100,8 @@ These are chain-level contributions any Xahau project can adopt, born from runni
 3. **Oden's Eye** - a freeze-only, DAO-governed, cross-protocol security registry with fail-open product-side guards, live fleet-wide across the DAO and every product account (v4.9 guard, source-verified). A shared security good for the chain, now extended by RVN/RLP staking that lets holders back individual ravens.
 4. **The standalone hook suite** - DAO-free AMM/lending/perps reference deployments any third party can install on their own account. Xahau public infrastructure, not just our product.
 5. **A fully open wire format** - our complete raw-transaction format (every HookParameter, hex-documented) is published keyless so builders and AI agents can integrate with the hooks directly, bypassing us entirely. Deliberate anti-lock-in.
+6. **NFT hook primitives (Xahau Vault)** - marketplace mechanics implemented as hooks instead of as a custodial backend: an *ephemeral broker* that clears a buy-now in one `URITokenBuy` + `Remit` and forwards the net fee after chain costs; a *peer-to-peer swap hook* that holds each side's bundle only between the two "ready" transactions and settles both Remits **atomically in a single ledger** (mainnet-verified - the only XAH that moves is the 0.2 URIToken owner reserve riding with each token, and the hook takes no reserve of its own); a *timed auction hook* for bundles of up to four tokens with anti-snipe extension, buy-now, and a credit-and-withdraw path for refunds the ledger rejects; and a *mint/remit contract hook* that confirms the mint by callback before routing configured fee shares. Same discipline as the DeFi hooks - hash-locked, testnet battle-tested, preserved known-good baselines.
+7. **Public RPC and WebSocket endpoints** - the cluster in §2.2: free, keyless, rate-limited, no SLA, and growing. Infrastructure the ecosystem can point an app at today, seat or no seat.
 
 ### 2.4 Security discipline
 
@@ -127,7 +151,7 @@ Votes persist in hook state with no expiry; the vote that crosses the threshold 
 1. **Validate.** Maintain a reliable, UNL-grade validator whose derived account holds the seat, accepting the reward hook's eligibility gate as our performance bond.
 2. **Participate.** Vote on seat, hook, and reward topics actively and transparently, with our positions determined by OneXah DAO governance and published on-chain.
 3. **Build.** Continue shipping Xahau-native protocols, public hook infrastructure, and protocol research (Cron mechanics, escape-hatch, security registry) as open contributions.
-4. **Grow the network.** Keep driving diverse transactional demand to Xahau - DeFi, GameFi, cross-chain flow - and onboard the next wave of builders through our open APIs and standalone hook suite.
+4. **Grow the network.** Keep driving diverse transactional demand to Xahau - DeFi, NFTs, GameFi, cross-chain flow - and onboard the next wave of builders through our open APIs, our standalone hook suite, and a public node cluster we keep expanding.
 5. **Answer to a community.** Every seat position traceable to an open, stake-weighted, council-co-signed DAO process.
 
 ---

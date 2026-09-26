@@ -71,6 +71,42 @@ Key sources inside `c:\Users\codyr\Desktop\Code\100-2`: `README.md`, `llms.txt`,
 4. Standalone DAO-free AMM/lending/perps suite with live mainnet reference deployments.
 5. Fully published raw wire format (`llms.txt`) - keyless, anti-lock-in, AI-agent-friendly.
 
+## 2.5 Cbot Labs infrastructure and Xahau Vault - verified facts
+
+Sources are the operator's own repos on this box: `Xahau-Hub` (cluster provisioning), `cbot-labs` (the public site), `xahau-vault` (marketplace stack).
+
+### Public node cluster (`Xahau-Hub`, `cbotlabs.xyz`)
+
+| Fact | Value | Source |
+|---|---|---|
+| Public endpoints | `https://cluster.cbotlabs.xyz` (RPC, POST-only), `wss://ws-cluster.cbotlabs.xyz` (WS), `https://cbotlabs.xyz/api/cluster` (status JSON) | `Xahau-Hub/README.md`; `cbot-labs/cluster.html` |
+| Phase | Phase 1 - two nodes live; node 3 in `inventory.yml`, `enabled: false`, pending 384 GB RAM + 4 TB NVMe | `inventory.yml`, `docs/PHASE-2.md` |
+| Nodes | `xah-node-1` deep (700 GiB DB, `ledger_history` 3.5M target), `xah-node-2` api (300 GiB, 500k) | `inventory.yml` |
+| Host | R740 / `pve2`, 2x Xeon Gold 6154 (36C/72T), 128 GB now / 384 GB planned, PERC H740P RAID 10, 256 GiB pool reserve kept unprovisioned | `Xahau-Hub/README.md` |
+| Validator isolation | The UNL validator (CT 200 on a **different** host) is a hard-coded forbidden target in `lib/guard.sh`; 35 guard assertions fail the build if a guard stops refusing | `inventory.yml` `cluster.host.forbidden`, `make guards` |
+| Path | Cloudflare Tunnel → nginx rate limiter → `xah-node-2`; no port forward, WAN IP never published | `Xahau-Hub/README.md`, `proxy/npm-notes.md` |
+| Rate limit | 15 req/s + burst 30 per client, 8 WS connections. Load-verified: 178 req/s in → 43 served, 157 x 429 | `ops/install-ratelimit.sh`, README |
+| Hardening verified end to end 2026-09-13 | `server_info`, `fee`, `ledger`, `ledger_current`, `ledger_closed`, `account_info`, `account_tx`, `ping` all `success` over the public name; WS upgrades to 101 and pushes `ledgerClosed`; `can_delete` / `stop` → **403**; admin port refuses network connections | `Xahau-Hub/README.md` |
+| Nature of the nodes | Stock `xahaud`, **non-validating**. Trust is the published Xahau UNL, not the operator | `cbot-labs/cluster.html` |
+| Stated availability | Best effort, **no SLA**, published as such on the page | `cbot-labs/cluster.html` |
+| Observed live state (2026-09-25) | 2/2 nodes online, validated ledger 26,078,107, deep node history window 657,308 ledgers / api node 104,088, 12 peers, build `2026.6.21-release+3350` | cluster page screenshot |
+
+**Open item:** upload bandwidth for a public WS endpoint on the home connection is still **UNMEASURED** and is flagged in `Xahau-Hub/README.md` as the open question before promoting the endpoint widely. Do not promise capacity in the submission; describe it as best-effort and growing.
+
+### Xahau Vault (`xahau-vault`, `xahauvault.com`)
+
+- Marketplace + wallet + crawler stack for Xahau NFTs: metadata resolution, local media cache, admin crawl jobs, creator profiles, launchpad, Studio and Contract Engine creation lanes, XRPL↔Xahau bridge flow.
+- Self-hosted: Express API + built Vite frontend + crawler worker + bridge worker under pm2 on the operator's own VM; Prisma/Postgres DB-first with a JSON fallback path. `docs/deployment/local-dev-to-vm.md`.
+- **Hooks written in-house** (`src/hooks/*`, each with preserved known-good source + wasm and recorded hashes):
+  - *Ephemeral broker* - buy-now clearing: buyer `Payment` with `NFTID`+`BUY` → `URITokenBuy` → `Remit` → net fee out. Known-good snapshot 2026-03-29, source hash `E54D0932…FEFD0A4`, wasm `46CD2C4B…FE3C9D493`. `docs/hooks/ephemeral-broker-hook.md`.
+  - *NFT swap hook* - two-sided bundle swap, 1-4 tokens a side (v5; mainnet runs v4.1 one-for-one). Open or counterparty-named listings, un-ready / change / kick / reclaim paths, fee up-flow. Settlement is **atomic in one ledger**. `docs/hooks/nft-swap-hook.md`.
+  - *NFT auction hook* - timed bundle auctions, min bid + increment, buy-now, anti-snipe extension, anyone-can-close, credit-and-withdraw for refunds the ledger rejects. Built 2026-09-25, HookHash `93D1165F…F84B6AD`, **testnet 69/69**. Hook only - not on mainnet. `docs/hooks/nft-auction-hook.md`.
+  - *NFT contract + fee routes* - mint/remit with callback-confirmed mint state and up to 4 net-of-cost fee-route wallets. Snapshot 2026-04-01, source `37006C5C…181FE7A5`, wasm `4A0275FE…2B519E24`. `docs/hooks/xahau-nft-contract-fee-routes.md`.
+- Mainnet settlement audit (2026-09-25): two swaps 109 s apart at ledgers 26,074,464 / 26,074,496; per-swap XAH movement is exactly the 0.2 XAH URIToken owner reserve per token; the hook nets ~-0.0004 XAH (its own tx fees) and **takes no reserve**; fee sweep to the up-flow account matched the documented KEEP. `ai/current-state.md`.
+- Open/read API and an MCP connector let a holder's own Claude or ChatGPT read their wallet and draft trades; **the AI can never sign** - every trade tool stops at a Xaman payload.
+
+**Framing guardrails for this section:** the auction hook is **testnet-only** - do not describe it as live. Node 3 is **planned**, not running. The cluster is **non-validating** and **no-SLA**; say "free, keyless, best-effort, growing," never "production RPC for the ecosystem." Vault mainnet claims are limited to the broker, the swap hook (v4.1) and the contract hooks.
+
 ## 3. Framing guardrails (keep the proposal honest)
 
 - **Do not claim "majority of Xahau traffic"** until §4.2 produces chain-verified numbers. Current defensible phrasing: "one of the largest sources of diverse, organic transactional traffic."
@@ -97,6 +133,13 @@ Key sources inside `c:\Users\codyr\Desktop\Code\100-2`: `README.md`, `llms.txt`,
 - [x] Dane Brown (Kairo Vault Technologies GK): audit/security work documented → **[docs/security-review.md](security-review.md)**; current live builds in **[docs/live-hooks.md](live-hooks.md)**.
 - [ ] Decide whether the fleet-sweep provenance notes are disclosed in the proposal or held for member due diligence on request - project's call; security-review.md states they exist and are available on request.
 - [ ] Geographic spread of council/validators ("different continents") - one line each, no doxxing needed.
+
+### 4.3b Infrastructure evidence (cluster + Vault)
+- [ ] Measure and record **upload bandwidth** on the cluster's public path - the one open question in `Xahau-Hub/README.md` before the endpoint is promoted to members.
+- [ ] Capture an uptime/availability window for `cluster.cbotlabs.xyz` (e.g. 30 days of `/api/cluster` polling) so the "public infrastructure" claim carries a number.
+- [ ] Record node 3's arrival (RAM + NVMe) if it lands before submission - it turns "two nodes, a third planned" into "three nodes".
+- [ ] Pull chain-verified counts for the Vault hook accounts (broker, swap escrow) the same way as §4.2, so the NFT side has its own traffic evidence.
+- [ ] Decide whether the auction hook ships to mainnet before submission; if not, keep it described as testnet-proven.
 
 ### 4.4 Submission logistics
 - [ ] Contact channels for the 8 sitting members (XRPL-Labs, Titanium, Evernode, Digital Governance, GateHub, Projects L2, Community/Dev L2, Exchanges L2) - note the three L2 tables need internal 51% first, so brief their *members*, not just the table.
