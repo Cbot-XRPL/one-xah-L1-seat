@@ -127,7 +127,7 @@ Security is led in-house by **Cbot Labs (Cody)** - the primary audit and hook-en
 
 ### 2.5 The seat account, what its rewards fund, and how value comes back
 
-Plainly, because members will ask.
+Plainly, because members will ask. The thesis first: **seating this account is a bet on community expansion, not on one operator's hardware.** The metal is just what the community's systems happen to run on.
 
 **The seat is held by Cbot Labs.** The account is derived from our validator's master key, and Cbot Labs operates it. What sits under the seat is everything we pay for and run: the validator, the public cluster, the price oracle, Xahau Vault, One Xahau's site and APIs, the open hook releases, and the hardware, storage, bandwidth and engineering hours all of that consumes. The machines are the least interesting part. The contribution is the community systems they carry and the people who use them daily.
 
@@ -142,7 +142,7 @@ Most of that spend ends up as something other people use, and One Xahau is one o
 
 **Value comes back by function.** The things we run distribute value simply by operating, and that is deliberate. Every AMM swap pays its liquidity providers and routes a cut to a treasury the community votes on. Every emission and staking claim pays a token holder. The faucet hands a new user their first tokens. The marketplace moves creators' work and pays them for it. The cluster, the oracle and the open APIs answer anybody's query for free, whether or not they have ever spoken to us. The validator does consensus work for the whole chain. None of that is a grant programme or a handout. Value flowing to functional systems fosters long-term growth. And a seat's reward is not a grant with an end date: it keeps arriving for as long as the validator performs, so we budget it the way it arrives, as permanent upkeep and steady expansion of the systems the community uses. Keeping those systems up, documented and supported is the job, and it is the job the seat would help pay for.
 
-**Where the line sits.** Cbot Labs is the gate on that spending: the operator runs the systems, carries the cost and the risk, and decides. Protocol X is its own thing alongside it, with its own on-chain treasury, its own stake-weighted vote and its own council, all of which it keeps. The seat does not draw on that treasury and the DAO does not direct the seat. What connects them is that the same team builds both, and that what the seat earns tends to end up paying for things the whole community uses.
+**Where the line sits.** Cbot Labs is the gate on that spending: the operator runs the systems, carries the cost and the risk, and decides. What the spending is aimed at, though, is not the operator. It is how many people are using Xahau next year. Protocol X is its own thing alongside it, with its own on-chain treasury, its own stake-weighted vote and its own council, all of which it keeps. The seat does not draw on that treasury and the DAO does not direct the seat. What connects them is that the same team builds both, and that what the seat earns tends to end up paying for things the whole community uses.
 
 ---
 
@@ -195,7 +195,7 @@ Votes persist in hook state with no expiry; the vote that crosses the threshold 
 
 The Governance Game was designed for "community, enterprise, infrastructure providers" to steward Xahau together. Twelve seats sit empty. The table has voted once - to remove. It has never voted to add.
 
-Cbot Labs is the kind of member the empty seats were reserved for: already validating here, already serving public endpoints here, already shipping hooks other people install, and building products whose users govern them on-chain. We are asking to formalize what is already true - that our community's future and Xahau's future are the same future - and to take up the responsibilities that come with it.
+Cbot Labs is the kind of member the empty seats were reserved for: already validating here, already serving public endpoints here, already shipping hooks other people install, and building products whose users govern them on-chain. A seat with us in it is a bet on how fast the community around this chain grows, because that is what we spend our time and our money on. We are asking to formalize what is already true - that our community's future and Xahau's future are the same future - and to take up the responsibilities that come with it.
 
 We welcome due diligence. Every claim in this document is either verifiable on-chain today or will be accompanied by chain-verifiable evidence in the formal submission package (see the [data room](docs/data-room.md)).
 
