@@ -125,9 +125,9 @@ Plainly, because members will ask.
 
 **The seat is held by Cbot Labs.** The account is derived from our validator's master key, and Cbot Labs operates it. Cbot Labs also pays for and runs the validator, the public cluster, Xahau Vault, and the web and API infrastructure underneath all of it - the hardware, the storage, the bandwidth and the engineering hours. That is the contribution the seat would sit on.
 
-**The rewards are infrastructure funding.** A seat's share of Balance Adjustment claims goes to the operator that runs the metal, which is how the other members use theirs. XRPL Labs does not run a DeFi protocol out of its seat; it uses what the seat earns to keep its infrastructure up and build the next thing. Ours does the same job: nodes, disks, bandwidth, the third cluster node, and the next hook release. It is not a protocol treasury line, and it is not distributed to token holders.
+**The rewards fund the work.** A seat's share of Balance Adjustment claims goes to the operator that runs the metal - which is how the rest of the table uses theirs. XRPL Labs does not run a DeFi protocol out of its seat; it uses what the seat earns to keep its infrastructure up and build the next thing. Ours does the same job, and "infrastructure" here has never meant only hardware. It is nodes, disks, bandwidth and the third cluster node. It is also the hundreds of XAH burned in SetHook fees every time a live hook is fixed and reinstalled, the testnet and mainnet rehearsal runs behind every release, the cost of standing up the next protocol, tips to people who show up and do the work, and the next public hook release. A good share of it lands back in the ecosystem - and One Xahau is one of the places it lands.
 
-**One Xahau is not the same thing as the seat.** Protocol X has its own on-chain treasury, its own stake-weighted vote and its own council, and it keeps them. It does not direct the seat's rewards and is not owed them - and equally, Cbot Labs does not own or control the DAO's treasury. Two separate things, honestly labelled: an infrastructure operator with a seat, and a community-governed protocol that the same team builds for.
+**Where the line sits.** Cbot Labs is the gate on that spending: the operator runs the metal, carries the cost and the risk, and decides. Protocol X is its own thing alongside it - own on-chain treasury, own stake-weighted vote, own council, all of which it keeps. The seat does not draw on that treasury and the DAO does not direct the seat. What connects them is that the same team builds both, and that what the seat earns tends to end up paying for things the whole community uses.
 
 ---
 
@@ -172,7 +172,7 @@ Votes persist in hook state with no expiry; the vote that crosses the threshold 
 2. **Participate.** Vote on seat, hook, and reward topics actively and transparently, with our positions informed by OneXah DAO governance and our reasoning published.
 3. **Build.** Continue shipping Xahau-native protocols, installable public hook releases ([cbot-labs-hooks](https://github.com/Cbot-XRPL/cbot-labs-hooks)), and protocol research (Cron mechanics, escape-hatch, security registry) as open contributions.
 4. **Grow the network.** Keep driving diverse transactional demand to Xahau - DeFi, NFTs, GameFi, cross-chain flow - and onboard the next wave of builders through our open APIs, our standalone hook suite, and a public node cluster we keep expanding.
-5. **Stay accountable.** Reinvest what the seat earns into the infrastructure it rests on - nodes, bandwidth, the next hook release - and publish our positions and our reasoning where the community that uses the chain can hold us to them.
+5. **Stay accountable.** Put what the seat earns back into the work it rests on - nodes, bandwidth, hook fees and testing, the next release, and the builders around us - and publish our positions and our reasoning where the community that uses the chain can hold us to them.
 
 ---
 
