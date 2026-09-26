@@ -93,6 +93,23 @@ Sources are the operator's own repos on this box: `Xahau-Hub` (cluster provision
 
 **Open item:** upload bandwidth for a public WS endpoint on the home connection is still **UNMEASURED** and is flagged in `Xahau-Hub/README.md` as the open question before promoting the endpoint widely. Do not promise capacity in the submission; describe it as best-effort and growing.
 
+### Price oracle (`roratatoAYHjnDY5Fhc3uCvDy2Y3oeQQf`, https://onexah.io/oracle)
+
+XLS-47d `PriceOracle` objects on Xahau mainnet. Publisher: `server/lib/price-oracle-publisher.js` in the One Xahau repo; page `OraclePage.jsx`; API `https://onexah.io/api/public/v1/oracle` (keyless, returns the live values, the publisher workers and the recent post hashes).
+
+| Fact | Value | Source |
+|---|---|---|
+| Oracle account | `roratatoAYHjnDY5Fhc3uCvDy2Y3oeQQf` | live API |
+| Doc 1 (`currency`) | `XAH/USD`, `XRP/USD`, `EVR/USD`, `XXX/USD`, `RVN/USD` in one atomic `OracleSet` per tick | changelog 2026-08-01 |
+| Doc 1 sourcing | XAH + XRP = two-source average (CoinGecko + Bitrue); EVR/XXX/RVN priced off AMM reserves x the XAH anchor via plain RPC reads | changelog 2026-08-01 |
+| Doc 2 (`earth`) | `CO2/PPM` (NOAA Mauna Loa), `SST/DGC` + `GAT/DGC` (ClimateReanalyzer), `ICE/MKM` (NSIDC), `KPX/IDX` (SWPC Kp), `EQK/MAG` (USGS largest M4.5+ in 24 h) - keyless agency sources | changelog 2026-08-02 |
+| Publishers | worker A `rUXUHA1HALSrj9R7fNrsELHQRP3MZDXxLT` (Cbot Labs) and worker B `rJ9AtQqQcJTBdhQChTbP97rS7ceUEXkFmK` (Evernode container, also the decentralized-host mirror of onexah.io). B only publishes once A's document passes its stale gate - A healthy carries both docs, A down and B carries both. | live API; changelog 2026-08-02 |
+| Freshness | ledger-enforced: `LastUpdateTime` within +/-300 s of close time and monotonic. Publisher-side: XAH anchor failure skips the whole tick; each pair carries a bounded last-good fill because an `OracleSet` omitting a pair **deletes** it | xls47 playbook; changelog 2026-08-01 |
+| Readable by any hook | object index `SHA512Half(0x0052 \|\| owner AccountID \|\| OracleDocumentID)`; `slot_set` takes the 32-byte index, so a foreign oracle is readable with no permission | `ai/library/xls47-price-oracle-playbook.md` |
+| Reserve | doc 1 (5 pairs) 1 owner reserve, doc 2 (6 pairs) 2 owner reserves | XLS-47 spec |
+
+**Claim discipline:** the repo supports "one of the first XLS-47d price oracles on Xahau mainnet" and every technical detail above. It does **not** yet support "the only one" - that needs the check in §4.3b. The perps hook's AMM-reserve "oracle" is a different thing (an internal price read, not a published feed); do not conflate them.
+
 ### Public hook releases (`cbot-labs-hooks`)
 
 Repo: https://github.com/Cbot-XRPL/cbot-labs-hooks (public). Each release ships hook source + compiled `.wasm` + a one-command Node installer with a dry-run mode that verifies the binary hash before submitting; the installer signs with the operator's own local `SEED` and transmits no key.
@@ -155,6 +172,8 @@ Repo: https://github.com/Cbot-XRPL/cbot-labs-hooks (public). Each release ships 
 - [ ] Record node 3's arrival (RAM + NVMe) if it lands before submission - it turns "two nodes, a third planned" into "three nodes".
 - [ ] Pull chain-verified counts for the Vault hook accounts (broker, swap escrow) the same way as §4.2, so the NFT side has its own traffic evidence.
 - [ ] Decide whether the auction hook ships to mainnet before submission; if not, keep it described as testnet-proven.
+- [ ] Before claiming "the only" XAH/USD oracle: scan mainnet for other `PriceOracle` (0x0080) objects and record what you find. Until then the proposal says "one of the first", which the repo supports.
+- [ ] Capture a week of oracle uptime (post cadence + how often worker B had to take over) - it is the cleanest evidence that the Evernode backup is real and not decorative.
 
 ### 4.4 Submission logistics
 - [ ] Contact channels for the 8 sitting members (XRPL-Labs, Titanium, Evernode, Digital Governance, GateHub, Projects L2, Community/Dev L2, Exchanges L2) - note the three L2 tables need internal 51% first, so brief their *members*, not just the table.
