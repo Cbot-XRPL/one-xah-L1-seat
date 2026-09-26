@@ -1,4 +1,4 @@
-# On-Chain Vote Guide - Seating OneXah DAO at the L1 Table
+# On-Chain Vote Guide - Seating Cbot Labs at the L1 Table
 
 A step-by-step guide for sitting L1 members, per the governance hook installed on the Xahau genesis account. Everything here is sourced from the hook source itself:
 **govern.c** - https://github.com/Xahau/xahaud/blob/dev/hook/genesis/govern.c
@@ -56,9 +56,9 @@ Each direct (L1) member submits, from their seat account:
 Notes, per `govern.c`:
 
 - **The seat number is a raw byte, not ASCII.** Seat S9 is `0x09` → topic `5309`. (Seat S19 would be `5313`.)
-- **`V` is the 20-byte AccountID** (hex) of the candidate account - *not* the r-address string. OneXah's candidate AccountID will be published in the formal submission package.
+- **`V` is the 20-byte AccountID** (hex) of the candidate account - *not* the r-address string. The candidate AccountID will be published in the formal submission package.
 - **Votes are sticky.** Your vote stays in state until you change it. Re-voting with different data decrements your old tally and increments the new one. Re-submitting an identical vote is a no-op.
-- **The 6th identical vote seats the member instantly** - the hook writes the seat↔account mapping, increments `MC`, and OneXah DAO is a member from that ledger forward. No further action needed.
+- **The 6th identical vote seats the member instantly** - the hook writes the seat↔account mapping, increments `MC`, and the Cbot Labs seat account is a member from that ledger forward. No further action needed.
 - If the candidate already held another seat it would be moved, not duplicated; and a removed member's outstanding votes are garbage-collected automatically.
 
 ### For L2-table seats (S5, S6, S8)
@@ -76,8 +76,8 @@ Members of an L2 table vote inside their own table with an additional layer para
 
 ## Precedent
 
-The mechanism has executed exactly once: seat S7 (Auditors & Enterprise) was removed when 7 of the then-9 members (floor(9 × 0.8) = 7) cast the all-zero delete vote - visible in genesis hook state today. Seating OneXah DAO would be the **first addition** in the table's history, exercising the mechanism precisely as specified at genesis.
+The mechanism has executed exactly once: seat S7 (Auditors & Enterprise) was removed when 7 of the then-9 members (floor(9 × 0.8) = 7) cast the all-zero delete vote - visible in genesis hook state today. Seating Cbot Labs would be the **first addition** in the table's history, exercising the mechanism precisely as specified at genesis.
 
 ## Reward eligibility of the new seat
 
-Per **reward.c** (https://github.com/Xahau/xahaud/blob/dev/hook/genesis/reward.c), each L1 seat earns 1/20th of every user's claimed Balance Adjustment - but only while the seat account (derived from a validator master key) appears in the active-validator list of the on-ledger UNLReport. OneXah's proposed seat account will be derived from Cbot's validator master key, so the seat's rewards are earned by live, verifiable validation - and automatically withheld if we ever fail to perform. The table gives up nothing on trust: the protocol itself enforces our end of the bargain.
+Per **reward.c** (https://github.com/Xahau/xahaud/blob/dev/hook/genesis/reward.c), each L1 seat earns 1/20th of every user's claimed Balance Adjustment - but only while the seat account (derived from a validator master key) appears in the active-validator list of the on-ledger UNLReport. The proposed seat account will be derived from the Cbot Labs validator master key, so the seat's rewards are earned by live, verifiable validation - and automatically withheld if we ever fail to perform. The table gives up nothing on trust: the protocol itself enforces our end of the bargain.

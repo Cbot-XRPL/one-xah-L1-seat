@@ -93,6 +93,18 @@ Sources are the operator's own repos on this box: `Xahau-Hub` (cluster provision
 
 **Open item:** upload bandwidth for a public WS endpoint on the home connection is still **UNMEASURED** and is flagged in `Xahau-Hub/README.md` as the open question before promoting the endpoint widely. Do not promise capacity in the submission; describe it as best-effort and growing.
 
+### Public hook releases (`cbot-labs-hooks`)
+
+Repo: https://github.com/Cbot-XRPL/cbot-labs-hooks (public). Each release ships hook source + compiled `.wasm` + a one-command Node installer with a dry-run mode that verifies the binary hash before submitting; the installer signs with the operator's own local `SEED` and transmits no key.
+
+| Release | Path | What it does | Status |
+|---|---|---|---|
+| **ba-cron** | `basic/ba-cron/` | `AccountSet SetFlag 11` (`lsfTshCollect`) + `SetHook` (`hsfCOLLECT`) + `CronSet` (~30 d, `RepeatCount 256`, self-re-arming) → emits `ClaimReward` on each tick; the `GenesisMint` credits one ledger later. `HookOn` covers only `Cron(92)`, `SetHook(22)`, `Invoke(99)` - Payment and OfferCreate bits are off. Writes no hook state. | Live on mainnet |
+| **uritoken-broker** | `basic/uritoken-broker/` | Buyer `Payment` with `NFTID` + `BUY` → `URITokenBuy` → `Remit` to buyer → net fee `Payment`; refunds a failed buy. Mirror of https://github.com/Cbot-XRPL/xahau-uritoken-broker (v3.0.0, hook hash `9D39BF3D`). | Live on mainnet |
+| **amm-v2** | `defi/pools/amm-v2/` | Constant-product XAH ⇄ IOU pool; LP shares as an IOU, bps swap fee, optional DAO fee escrow, DEX offer mirroring. Hook hash `E000F5F04A0A1CABCAF6ECDA617E8E743BAF1C9F57EE0A7B8FF066CF95DED5C7`, 56,628 B. The exact build on `rAMMznwkgL1BB6o4eYWufMAdy6t1LPgnf`, `rLPXFdgvriFHXt7WYybqJSu49Ff5DRzq1u`, `rRLPRi86xXjq8QmuvcpUfN6dg3etmCNHT`. | Live on mainnet |
+
+**Audit status, exactly as the repo states it:** `basic/` hooks are **not audited**; **amm-v2 has been through an external audit with the tracker private and fixes in source**. That is a stronger statement than anything in §2 and it is still **not** an "independently audited protocol" claim - it covers one hook, and the report is not published. Permitted phrasing: "the AMM hook has been through an external audit (tracker private, fixes in source)". Not permitted: "our hooks are externally audited", "audited protocol".
+
 ### Xahau Vault (`xahau-vault`, `xahauvault.com`)
 
 - Marketplace + wallet + crawler stack for Xahau NFTs: metadata resolution, local media cache, admin crawl jobs, creator profiles, launchpad, Studio and Contract Engine creation lanes, XRPL↔Xahau bridge flow.
@@ -109,6 +121,9 @@ Sources are the operator's own repos on this box: `Xahau-Hub` (cluster provision
 
 ## 3. Framing guardrails (keep the proposal honest)
 
+- **Who holds the seat:** Cbot Labs, as validator and infrastructure operator. Do **not** write the proposal as though the DAO holds the seat or directs its rewards - it does not, and a member who reads the DAO's on-chain rules will see that no such mechanism exists. The honest split is in README §2.5: the operator holds and funds the infrastructure and receives the seat's rewards for it; Protocol X keeps its own treasury and its own vote. The XRPL Labs comparison (seat rewards sustain infrastructure) is the precedent to lean on.
+- **Do not over-promise decentralization.** "Community-governed" is true of the Protocol X products (treasury, proposals, council co-sign, product multisigs). It is not true of the validator, the cluster, the Vault deployment, or the seat account - those are operator-run, and saying otherwise is the kind of claim due diligence dismantles.
+
 - **Do not claim "majority of Xahau traffic"** until §4.2 produces chain-verified numbers. Current defensible phrasing: "one of the largest sources of diverse, organic transactional traffic."
 - **Voter counts:** repo documents council of 3 (+admin) and active stakers, not "100s-1000s of voters." Frame the large voter base as trajectory ("growing toward"), not as present fact, until live counts are pulled.
 - Audits in-repo are internal/AI-adversarial; no third-party auditor is named. Say "audited internally with published forensics," **never "independently audited."**
@@ -118,7 +133,7 @@ Sources are the operator's own repos on this box: `Xahau-Hub` (cluster provision
 
 ### 4.1 The seat account (blocking)
 - [ ] Decide and publish the **candidate seat account**. To earn rewards it must be the account derived from the **validator's master public key** (reward.c gate). Derive it (`master key → AccountID`), fund it, publish r-address + 20-byte AccountID hex in README and vote guide.
-- [ ] Decide internal control of that account (multisig? DAO-directed signing policy?) and document how OneXah DAO governance directs its L1 votes (e.g., a dedicated ptype or published council process).
+- [ ] Decide internal control of that account (multisig? published signing policy?) and document how community input **informs** its L1 votes - a consultation and publication process, not a claim that the DAO controls the seat (see §3 guardrails and README §2.5).
 - [ ] Record the validator public key and its dUNL/UNLReport status; capture a `ledger_entry` of the UNLReport showing the validator active.
 
 ### 4.2 Chain-verified traffic metrics (the "momentum" evidence)
