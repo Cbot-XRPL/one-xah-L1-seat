@@ -9,6 +9,38 @@
 
 ---
 
+## How to vote (for sitting L1 members)
+
+If you have already decided, this is the whole thing. One `Invoke` from your seat account to the genesis account. No voting period, no deadline, no meeting.
+
+```jsonc
+{
+  "TransactionType": "Invoke",
+  "Account": "<your seat r-address>",
+  "Destination": "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh",
+  "NetworkID": 21337,
+  "HookParameters": [
+    { "HookParameter": { "HookParameterName": "54",   // 'T' = topic
+                         "HookParameterValue": "5309" } },   // 'S' + seat byte 0x09 = S9
+    { "HookParameter": { "HookParameterName": "56",   // 'V' = vote value
+                         "HookParameterValue": "<our 20-byte seat AccountID, hex>" } }
+  ]
+}
+```
+
+| | |
+|---|---|
+| **Threshold** | 6 of the 8 filled seats. `floor(8 x 0.8)`, per `govern.c`. |
+| **The seat byte is raw, not ASCII** | S9 is `0x09`, so the topic is `5309`. S19 would be `5313`. |
+| **`V` is the 20-byte AccountID**, not the r-address | Published with the formal submission. |
+| **Votes never expire** | They sit in hook state until you change them. Re-voting replaces your previous vote; an identical re-vote is a no-op. |
+| **The 6th identical vote seats us instantly** | In that same transaction. Nothing else to do afterwards. |
+| **On an L2 table (S5, S6, S8)?** | Vote inside your own table with `L` (`4C`) = `01`. At 51% your table emits the L1 Invoke itself. |
+
+Voting no costs nothing and needs no transaction: a seat change simply never reaches its threshold. **If you want the detail first** - every parameter, the L2 path, the thresholds table and the reward-eligibility gate, all cited to `govern.c` and `reward.c` - it is in **[docs/on-chain-vote-guide.md](docs/on-chain-vote-guide.md)**. The case for voting yes is the rest of this document.
+
+---
+
 ## Executive summary
 
 Cbot Labs - the Xahau validator and infrastructure operator behind One Xahau / Protocol X, Xahau Vault and the public node cluster - respectfully proposes that it be voted into a vacant seat on the Xahau L1 Governance Table, per the mechanism defined in the genesis governance hook (`govern.c`).
