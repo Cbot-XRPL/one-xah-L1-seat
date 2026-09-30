@@ -164,6 +164,7 @@ A trusted council spanning multiple continents, with role coverage across the fu
 | **Cbot (Cody) - Cbot Labs** | Founder; hook & contract development and the protocol’s primary security/audit work - byte-for-byte, `hookz`, and testnet proofs on every live hook; Xahau validator operator |
 | **gadget78 (Mick)** | DevOps; active in the Evernode Community, developer of evrPanel, bringing OneXah to decentralized hosting. (Elected to the council by on-chain community vote PID 13).
 | **7Rays (Mike)** | Community outreach; on-chain council member |
+| **@andreirosset** | Council member; developer of **Evergram**, the Evernode-powered decentralized messaging app. Brings the messaging and decentralized-hosting side of the ecosystem to the table, and backs this seat. |
 | **Dane Brown - Kairo Vault Technologies GK** (Huge Green Candle) | Council member, Audit & security - structured the verification write-up and reviewed the work on-chain (a security firm; council seat, not an independent third-party audit) |
 
 As that community grows, the seat's positions on table business will be put to it the same way protocol changes are - proposed openly, debated, voted by stake - and our reasoning published either way. The seat stays operated by the party that runs the infrastructure; the constituency is what informs how it votes. **Seating us puts a working operator at the table, with a live on-chain community behind the products it builds.**
