@@ -120,6 +120,8 @@ Repo: https://github.com/Cbot-XRPL/cbot-labs-hooks (public). Each release ships 
 | **uritoken-broker** | `basic/uritoken-broker/` | Buyer `Payment` with `NFTID` + `BUY` → `URITokenBuy` → `Remit` to buyer → net fee `Payment`; refunds a failed buy. Mirror of https://github.com/Cbot-XRPL/xahau-uritoken-broker (v3.0.0, hook hash `9D39BF3D`). | Live on mainnet |
 | **amm-v2** | `defi/pools/amm-v2/` | Constant-product XAH ⇄ IOU pool; LP shares as an IOU, bps swap fee, optional DAO fee escrow, DEX offer mirroring. Hook hash `E000F5F04A0A1CABCAF6ECDA617E8E743BAF1C9F57EE0A7B8FF066CF95DED5C7`, 56,628 B. The exact build on `rAMMznwkgL1BB6o4eYWufMAdy6t1LPgnf`, `rLPXFdgvriFHXt7WYybqJSu49Ff5DRzq1u`, `rRLPRi86xXjq8QmuvcpUfN6dg3etmCNHT`. | Live on mainnet |
 
+**Pipeline claims:** the proposal says several more hooks are in audit and queued to publish. That is supportable as a statement of intent about an estate that demonstrably exists (34 active hooks across the products), but **do not name unreleased hooks or give release dates** in the submission - a member who checks the repo in a month should find it growing, not find a missed promise.
+
 **Audit status, exactly as the repo states it:** `basic/` hooks are **not audited**; **amm-v2 has been through an external audit with the tracker private and fixes in source**. That is a stronger statement than anything in §2 and it is still **not** an "independently audited protocol" claim - it covers one hook, and the report is not published. Permitted phrasing: "the AMM hook has been through an external audit (tracker private, fixes in source)". Not permitted: "our hooks are externally audited", "audited protocol".
 
 ### Xahau Vault (`xahau-vault`, `xahauvault.com`)
