@@ -1,6 +1,6 @@
 # Cbot Labs - Proposal for a Seat at the Xahau L1 Governance Table
 
-**Candidate:** **Cbot Labs** - Xahau validator and public infrastructure operator; builder of One Xahau / Protocol X (on-chain DAO), Xahau Vault, the public node cluster, and the open Cbot Labs hook releases
+**Candidate:** **Cbot Labs LLC** ("Cbot Labs") - Xahau validator and public infrastructure operator; builder of One Xahau / Protocol X (on-chain DAO), Xahau Vault, the public node cluster, and the open Cbot Labs hook releases
 **Seat account:** derived from the Cbot Labs validator master key *(published with the formal submission)*
 **Submitted to:** The sitting members of the Xahau L1 Governance Table
 **Requested seat:** Any vacant L1 seat (S7, S9-S19) - proposed: **S9**
@@ -161,7 +161,7 @@ Security is led in-house by **Cbot Labs (Cody)** - the primary audit and hook-en
 
 Plainly, because members will ask. The thesis first: **seating this account is a bet on the community here growing stronger, not on one operator's hardware.** The metal is just what the community's systems happen to run on.
 
-**The seat is held by Cbot Labs.** The account is derived from our validator's master key, and Cbot Labs operates it. What sits under the seat is everything we pay for and run: the validator, the public cluster, the price oracle, Xahau Vault, One Xahau's site and APIs, the open hook releases, and the hardware, storage, bandwidth and engineering hours all of that consumes. The machines are the least interesting part. The contribution is the community systems they carry and the people who use them daily.
+**The seat is held by Cbot Labs.** The candidate is **Cbot Labs LLC**, a registered entity, referred to throughout this document as Cbot Labs. The account is derived from our validator's master key, and Cbot Labs operates it. What sits under the seat is everything we pay for and run: the validator, the public cluster, the price oracle, Xahau Vault, One Xahau's site and APIs, the open hook releases, and the hardware, storage, bandwidth and engineering hours all of that consumes. The machines are the least interesting part. The contribution is the community systems they carry and the people who use them daily.
 
 **The rewards fund the work.** A seat's share of Balance Adjustment claims comes to the operator doing that work, which is how the rest of the table uses theirs: what a seat earns keeps their contribution running and funds the next thing they build. Ours funds four things at once, and hardware is the smallest of them.
 

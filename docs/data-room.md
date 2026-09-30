@@ -189,6 +189,11 @@ Repo: https://github.com/Cbot-XRPL/cbot-labs-hooks (public). Each release ships 
 - [ ] Decide whether the fleet-sweep provenance notes are disclosed in the proposal or held for member due diligence on request - project's call; security-review.md states they exist and are available on request.
 - [ ] Geographic spread of council/validators ("different continents") - one line each, no doxxing needed.
 
+### 4.3a Entity
+- Legal entity: **Cbot Labs LLC**, stated in the README header and section 2.5.
+- [ ] Have the jurisdiction, registration number and formation date ready in case a member asks for them during due diligence. Not published in the proposal by default, but a member who is voting a company onto a governance table may well ask.
+- [ ] Decide whether the seat account is held in the company's name for the record, and whether that is stated in the submission.
+
 ### 4.3b Infrastructure evidence (cluster + Vault)
 - [ ] Measure and record **upload bandwidth** on the cluster's public path - the one open question in `Xahau-Hub/README.md` before the endpoint is promoted to members.
 - [ ] Capture an uptime/availability window for `cluster.cbotlabs.xyz` (e.g. 30 days of `/api/cluster` polling) so the "public infrastructure" claim carries a number.
