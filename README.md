@@ -70,13 +70,13 @@ Every swap, deposit, borrow, repayment, liquidation, perp open/close, stake, cla
 Documented footprint (see the [data room](docs/data-room.md) for sources and the live-metrics checklist):
 
 - **TVL grew >10x in five weeks** in mid-2026, from ~$20k in early June to ~$251k (a current figure is attached in the formal submission).
-- **DAO treasury ~247,000 XAH**, governed by on-chain vote (treasury spends execute as passed proposals, e.g. PID 10).
-- **81 active XXX stakers** with ~180,000 XXX staked into governance and rewards (August 2026).
+- **485 accounts hold a One Xahau position or token** as of 30 September 2026, 416 of them with a live balance: XXX holders plus LP, lending, perps and vortex bearer tokens across the product accounts. Counted straight off the ledger with `account_lines` on our own public endpoint, so any member can reproduce the number in a minute. It is a floor rather than a ceiling - it counts wallets currently holding something, not everyone who has swapped, borrowed, traded a perp, claimed from the faucet or played through the GameFi hub.
+- **~208,000 XXX staked** into governance and rewards, and a **DAO treasury of ~252,000 XAH** governed by on-chain vote (treasury spends execute as passed proposals, e.g. PID 10). Both read live from `/api/public/v1/dao` at emission epoch 176.
 - **~29,000+ XAH/year** of Balance Adjustment yield claimed autonomously by our hooks - we reverse-engineered and documented Xahau's Cron mechanics to do it, and published the research.
 - 24h AMM volume on the EVR pool alone in the ~250k XAH order of magnitude at peak.
 - Hundreds of XAH in SetHook fees burned to the network across our upgrade history.
 
-*(Live, chain-verifiable transaction counts for the five product accounts will be attached as an appendix before formal submission - see data room §4.)*
+*(Unique-user and transaction counts across the full product set, drawn from our deep-history node rather than a rolling window, will be attached as an appendix before formal submission - see data room §4.)*
 
 ### 2.2 Validator and infrastructure - the long-term contribution
 

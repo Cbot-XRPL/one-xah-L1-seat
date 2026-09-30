@@ -47,6 +47,26 @@ Key sources inside `c:\Users\codyr\Desktop\Code\100-2`: `README.md`, `llms.txt`,
 - Product accounts: AMM XAH/EVR `rAMMznwkgL1BB6o4eYWufMAdy6t1LPgnf`, AMM XAH/XXX `rLPXFdgvriFHXt7WYybqJSu49Ff5DRzq1u`, Lending XAH `rLoAxwmnrSnTtH58TJYi12coKUWePcENLU`, Lending EVR `rLoANdfWMtXnv2xYKsTDDkrEDyH71bMUfw`, Perps `rPErPbJuVJMTBGH2V4p6dbKnfmasU52KTY`, LPX staking `rxstbCa8R8DNGf5znxYkWwPYzjXUeGiRo`, Oden's Eye `rodENWCDYuas4sXkbBs3QeYsGLXzqrSps`, XAH/RVN `rRLPRi86xXjq8QmuvcpUfN6dg3etmCNHT`.
 - All product master keys disabled → 2-of-3 multisigs; roadmap to full blackhole (escape-hatch is the prerequisite, live on all 5 products since 2026-06-11).
 
+### Holder / participation counts (chain-verified 2026-09-30 via `cluster.cbotlabs.xyz`)
+
+Method: `account_lines` on each product account, paged to exhaustion, union of the counterparty accounts. Reproducible by anyone with a node; re-run before submission for a fresh figure.
+
+| Account | Trustlines | Holding a balance |
+|---|---|---|
+| DAO / XXX `rxxxx9gmp1DSJ8bE4Gya48VtRdPPz7mHF` | 438 | 336 |
+| AMM XAH/EVR `rAMMznwkgL1BB6o4eYWufMAdy6t1LPgnf` | 119 | 69 |
+| AMM XAH/XXX `rLPXFdgvriFHXt7WYybqJSu49Ff5DRzq1u` | 97 | 49 |
+| AMM XAH/RVN `rRLPRi86xXjq8QmuvcpUfN6dg3etmCNHT` | 64 | 50 |
+| Lending XAH `rLoAxwmnrSnTtH58TJYi12coKUWePcENLU` | 59 | 38 |
+| Lending EVR `rLoANdfWMtXnv2xYKsTDDkrEDyH71bMUfw` | 43 | 23 |
+| Perps `rPErPbJuVJMTBGH2V4p6dbKnfmasU52KTY` | 111 | 53 |
+| Vortex `rVLPNDwoZLFbaQut1Eoo5VcGjG1WDnidG` | 22 | 19 |
+| **Union (unique accounts)** | **485** | **416** |
+
+Also read the same day: DAO hook state namespace `F8951F87...` carries **91 staker records** (key prefix `0x12`), **~208,160 XXX staked**, **~251,892 XAH treasury**, emission epoch **176** (`/api/public/v1/dao`).
+
+**Why the README leads with holders, not stakers:** the old "81 stakers" line was both stale and the smallest true number in the set, and it read as the size of the community when it is a subset of one product's participants. Holder-union is larger, current, and verifiable by a member in one RPC call. **It is still a floor** - a wallet that swaps, borrows, repays, trades a perp, uses the faucet or plays a GameFi title without holding a position at read time is not in it. The unique-interacting-account count in §4.2 is the number that captures those, and it needs the deep node (the public API node's window is ~104k ledgers).
+
 ### Value / traffic datapoints (as recorded in-repo)
 - TVL 2026-07-08: $213k base + $38k staked XXX = **$251k**; up from ~$20k (2026-06-06) and $131k→$145k (2026-06-12).
 - DAO treasury ~244,480 → 246,980 XAH after PID 10 (2,500 XAH community tipping fund).
@@ -157,7 +177,7 @@ Repo: https://github.com/Cbot-XRPL/cbot-labs-hooks (public). Each release ships 
 
 ### 4.2 Chain-verified traffic metrics (the "momentum" evidence)
 - [ ] `account_tx` counts + monthly time series for all product accounts (AMM ×3, lending ×2, perps, DAO, LPX staking, Oden's Eye).
-- [ ] Unique interacting accounts (proxy for users) across those accounts.
+- [ ] Unique interacting accounts (proxy for users) across those accounts - run it against `xah-node-1` (deep), not the public API node, whose window is ~104k ledgers. This is the number that answers "how many people actually use this"; the 485-account holder union in §2 is a floor beneath it.
 - [ ] Total hook-emitted transaction counts; Cron tick counts; total fees burned by OneXah-related transactions.
 - [ ] OneXah share of total Xahau transaction volume over the last 30/90 days - this is the number that either supports or retires the "majority of traffic" claim.
 - [ ] Live DAO stats from `/api/public/v1/dao`: staker count, XXX holder count (richlist), proposal/vote participation counts.
