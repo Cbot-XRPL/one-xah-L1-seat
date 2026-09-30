@@ -152,7 +152,7 @@ The seat is operated by Cbot Labs (see §2.5), but it is not a seat with nobody 
 
 - **Proposals are open** to any staker meeting the minimum, with a 100 XXX bond (burned/retained - governance is deflationary by design).
 - **Passage requires both** a stake-weighted community majority (`yes > no`) **and** at least one council co-signature. "Neither side can act alone… The council can't originate an outcome against the community's will; it can only assent to a direction the community already chose."
-- **Real outcomes on-chain already:** treasury spends (PID 10: 2,500 XAH community fund), emission product registration (PID 7, 11), a perps market created by vote (PID 12), and **two council members added by community vote** (Gadget, PID 13; Dane, PID 16).
+- **Real outcomes on-chain already:** treasury spends (PID 10: 2,500 XAH community fund), emission product registration (PID 7, 11), a perps market created by vote (PID 12), and **three council members added by community vote** (Gadget, PID 13; Dane, PID 16; @andreirosset).
 - **Master keys on all product accounts are disabled** in favor of 2-of-3 multisigs held by separate parties, with blackholing as the stated direction for accounts where it makes sense - so non-custody becomes a property of the ledger rather than a promise.
 
 ### Council
@@ -164,7 +164,7 @@ A trusted council spanning multiple continents, with role coverage across the fu
 | **Cbot (Cody) - Cbot Labs** | Founder; hook & contract development and the protocol’s primary security/audit work - byte-for-byte, `hookz`, and testnet proofs on every live hook; Xahau validator operator |
 | **gadget78 (Mick)** | DevOps; active in the Evernode Community, developer of evrPanel, bringing OneXah to decentralized hosting. (Elected to the council by on-chain community vote PID 13).
 | **7Rays (Mike)** | Community outreach; on-chain council member |
-| **@andreirosset** | Council member; developer of **Evergram**, the Evernode-powered decentralized messaging app. Brings the messaging and decentralized-hosting side of the ecosystem to the table, and backs this seat. |
+| **@andreirosset** | Council member, elected by on-chain community vote; developer of **Evergram**, the Evernode-powered decentralized messaging app. Brings the messaging and decentralized-hosting side of the ecosystem to the table, and backs this seat. |
 | **Dane Brown - Kairo Vault Technologies GK** (Huge Green Candle) | Council member, Audit & security - structured the verification write-up and reviewed the work on-chain (a security firm; council seat, not an independent third-party audit) |
 
 As that community grows, the seat's positions on table business will be put to it the same way protocol changes are - proposed openly, debated, voted by stake - and our reasoning published either way. The seat stays operated by the party that runs the infrastructure; the constituency is what informs how it votes. **Seating us puts a working operator at the table, with a live on-chain community behind the products it builds.**

@@ -58,7 +58,7 @@ Key sources inside `c:\Users\codyr\Desktop\Code\100-2`: `README.md`, `llms.txt`,
 ### DAO governance (executed on-chain history)
 - Passage rule: stake-weighted `yes > no` AND ≥1 council YES; 100 XXX proposal bond; vote XXX + bonds burned/retained (deflationary).
 - Executed proposals: PID 6 (ADDPROD), PID 7 (emission product), PID 10 (**treasury spend**, 2,500 XAH), PID 11 (ELP staked emission), PID 12 (**perps pair added by vote**), PID 13 (**council member "gadet" elected**, `rsmYqAFi4hQtTY6k6S3KPJZh7axhUwxT31`, 18,057 XXX staked).
-- Council on-chain: `rHmmXMfW4bdxJqQeuUPdQSG8zL8RXabrBe` (dust/admin), `rGYNRDczgiJf5ScSwu4pihozRoMJAb4JV5` (7Rays), `rsmYqAFi4hQtTY6k6S3KPJZh7axhUwxT31` (Gadget). `CCNT` = 3 at tag `0x1E`.
+- Council on-chain: `rHmmXMfW4bdxJqQeuUPdQSG8zL8RXabrBe` (dust/admin), `rGYNRDczgiJf5ScSwu4pihozRoMJAb4JV5` (7Rays), `rsmYqAFi4hQtTY6k6S3KPJZh7axhUwxT31` (Gadget). `CCNT` = 3 at tag `0x1E`. **Stale:** council members have been added since that read (Dane PID 16, @andreirosset), so re-read `CCNT` and the member records before citing a council size.
 - Tokenomics: 3,000 XXX/epoch initial, 0.06%/epoch decay (~20%/yr), ~5M XXX free-emission ceiling, bond price = live AMM − 5% fee, 7-epoch vesting.
 
 ### Validator
@@ -162,7 +162,7 @@ Repo: https://github.com/Cbot-XRPL/cbot-labs-hooks (public). Each release ships 
 
 ### 4.3 People & security (supporting)
 - [ ] Short bios + roles + (optional) r-addresses for the full council: Cbot (Cody), gadget78 (Mick), 7Rays (Mike), @andreirosset (Evergram), Dane Brown - Kairo Vault Technologies GK (Huge Green Candle).
-- [ ] Confirm @andreirosset's council status on-chain (PID, if elected by vote, like Gadget PID 13 / Dane PID 16) and his preferred display name before submission - the README currently lists him without a PID.
+- [ ] Fill in @andreirosset's council-election PID (he was elected by on-chain vote like Gadget PID 13 / Dane PID 16; the README states the election but not the PID) and confirm his preferred display name.
 - [x] Dane Brown (Kairo Vault Technologies GK): audit/security work documented → **[docs/security-review.md](security-review.md)**; current live builds in **[docs/live-hooks.md](live-hooks.md)**.
 - [ ] Decide whether the fleet-sweep provenance notes are disclosed in the proposal or held for member due diligence on request - project's call; security-review.md states they exist and are available on request.
 - [ ] Geographic spread of council/validators ("different continents") - one line each, no doxxing needed.
